@@ -1,0 +1,147 @@
+.homepage-header {
+  color: white;
+  padding: 4rem;
+  text-align: center;
+}
+.homepage {
+  background-image: url('../img/homepageHeader.jpg'); /* Inserisci il percorso dell'immagine di sfondo */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+
+.homepage-header-content {
+  margin-bottom: 2rem;
+}
+
+.homepage-button{
+  background-color: #ff7f50;
+  color: white;
+  text-decoration: none;
+  outline: none;
+}
+
+.homepage-search-section {
+  padding: 2rem;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-input {
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.homepage-inspire-section {
+  padding: 4rem;
+}
+
+.homepage-inspire-content {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.homepage-card-link {
+  text-decoration: none;
+  color: white;
+  
+}
+
+.homepage-card {
+  background-image: url('../img/card2.jpg');
+  color: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-size: cover;
+}
+
+.homepage-card2 {
+  background-image: url('../img/card3.jpg');
+  color: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-size: cover;
+}
+
+.homepage-card3 {
+  background-image: url('../img/card4.jpg');
+  color: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-size: cover;
+}
+
+.homepage-card4 {
+  background-image: url('../img/card1.jpg');
+  color: white;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-size: cover;
+}
+
+.homepage-carousel-section {
+  padding: 4rem;
+  color: white;
+  margin-top: 4rem;
+  text-align: center;
+  background-color: rgb(13, 13, 40);
+}
+
+.homepage-carousel-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+}
+
+.homepage-carousel-text h3 {
+  margin: 0;
+}
+
+.homepage-carousel {
+  margin-top: 2rem;
+}
+
+.carousel-card {
+  width: 100%; /* Imposta la larghezza desiderata per la card del carosello */
+  height: 100%; /* Imposta l'altezza desiderata per la card del carosello */
+  overflow: hidden; /* Nasconde eventuali contenuti che superano le dimensioni della card */
+}
+
+.carousel-text{
+  background-color:rgba(0, 0, 0, 0.5); /* Colore della maschera */;
+}
+
+.carousel-image {
+  width: 500px;
+  height: 350px;
+  object-fit: cover; /* Ridimensiona l'immagine per coprire completamente la card */
+}
+
+.Link-Card{
+color: white;
+text-decoration: none;
+
+}

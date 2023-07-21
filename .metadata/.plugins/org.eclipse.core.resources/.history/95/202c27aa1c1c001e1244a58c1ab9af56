@@ -1,0 +1,144 @@
+package it.tripagency_capstone_epicode;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+import it.tripagency_capstone_epicode.repository.DestinazioniRepository;
+
+@SpringBootApplication
+public class TripAgencyApplication {
+
+    private final DestinazioniRepository destinazioniRepository;
+
+    public TripAgencyApplication(DestinazioniRepository destinazioniRepository) {
+        this.destinazioniRepository = destinazioniRepository;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(TripAgencyApplication.class, args);
+    }
+
+    @Bean
+    public void initDestinazioni() {
+        Destinazioni destinazione1 = new Destinazioni();
+        destinazione1.setNome("Marocco");
+        destinazione1.setDescrizione("Il tuo viaggio parte da Marrakech risolti verso Jemaa El Fna,piazza simbolo della citta,si parte poi per Kabash qui oasi e deserti vissuti in groppa ai dromedari!");
+        destinazione1.setImmagine("immagine-marocco.jpg");
+        destinazione1.setPaese("Marocco");
+        destinazione1.setCitta("Marakech,Kabash");
+        destinazioniRepository.save(destinazione1);
+
+        Destinazioni destinazione2 = new Destinazioni();
+        destinazione2.setNome("Kenya");
+        destinazione2.setDescrizione("Qui avrai l'opportunità di conoscere i big five della savana, tra safari  e mare sarà un'esperienza indimenticabile");
+        destinazione2.setImmagine("immagine-kenya.jpg");
+        destinazione2.setPaese("Kenya");
+        destinazione2.setCitta(" Watamu");
+        destinazioniRepository.save(destinazione2);
+
+        Destinazioni destinazione3 = new Destinazioni();
+        destinazione3.setNome("Tunisia");
+        destinazione3.setDescrizione("Definita “l’isola dolce” Djerba è il posto ideale in cui godersi la magia del deserto e scoprire le dune di sabbia dorata. Set di Star Wars, e teatro di mille colori, vi perderete tra i profumi dei Suq e i graffiti di Djerba Hood.");
+        destinazione3.setImmagine("immagine-tunisia.jpg");
+        destinazione3.setPaese("Tunisia");
+        destinazione3.setCitta("Midoun");
+        destinazioniRepository.save(destinazione3);
+
+        Destinazioni destinazione4 = new Destinazioni();
+        destinazione4.setNome("Brasile");
+        destinazione4.setDescrizione("Caipirinha, samba, feijoada e brigadeiros:Le spiagge da sogno di Copacabana e Ipanema ti aspettano rimarrai sbalordito dalla rigogliosa foresta amazzonica che le incornicia, il tutto mentre ti gusti una buonissima açai bowl con frutta tropicale.");
+        destinazione4.setImmagine("immagine-tunisia.jpg");
+        destinazione4.setPaese("Tunisia");
+        destinazione4.setCitta("Rio De Janeiro");
+        destinazioniRepository.save(destinazione4);
+        
+        Destinazioni destinazione5 = new Destinazioni();
+        destinazione5.setNome("Zanzibar");
+        destinazione5.setDescrizione("A Zanzibar vivrai la magia di Nakupenda, la lingua di sabbia che appare e scompare a seconda delle maree,  Prison Island e la foresta delle Mangrovie sono i 3 must di questa meta.");
+        destinazione5.setImmagine("immagine-tunisia.jpg");
+        destinazione5.setPaese("Zanzibar");
+        destinazione5.setCitta("Michamvi,Tanzania");
+        destinazioniRepository.save(destinazione5);
+        
+        Destinazioni destinazione6 = new Destinazioni();
+        destinazione6.setNome("Maldive");
+        destinazione6.setDescrizione("l’acqua cristallina del mare, un pomeriggio di snorkeling in compagnia di tartarughe giganti, il relax in spiagge paradisiache e le Maldive ad un prezzo pazzesco.");
+        destinazione6.setImmagine("immagine-tunisia.jpg");
+        destinazione6.setPaese("Maldive");
+        destinazione6.setCitta(" Hanimaadhoo");
+        destinazioniRepository.save(destinazione6);
+        
+        Destinazioni destinazione7 = new Destinazioni();
+        destinazione7.setNome("Cuba");
+        destinazione7.setDescrizione("Partiamo da L’Avana, e per raccontarti la storia del paese ci sarà una guida. Un giro in cocotaxi ti farà respirare l’essenza del cuore pulsante dei Caraibi.Il tuo viaggio continua a Varadero, un paradiso terrestre!");
+        destinazione7.setImmagine("immagine-tunisia.jpg");
+        destinazione7.setPaese("Tunisia");
+        destinazione7.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione7);
+        
+        Destinazioni destinazione8 = new Destinazioni();
+        destinazione8.setNome("Egitto");
+        destinazione8.setDescrizione("Snorkeling tra la barriera corallina del Mar Rosso, cammellata, motorata e Jeep nel deserto. Tè beduino, visita al parco naturale di Ras Mohammed, possibilità di volare al Cairo e vedere le piramidi…");
+        destinazione8.setImmagine("immagine-tunisia.jpg");
+        destinazione8.setPaese("Egitto");
+        destinazione8.setCitta("Shharm El Sheik");
+        destinazioniRepository.save(destinazione8);
+        
+        Destinazioni destinazione9 = new Destinazioni();
+        destinazione9.setNome("Giordania");
+        destinazione9.setDescrizione("Visita al tesoro di Petra,Jerah,Al Karak,attraverserai il deserto del wadi rum al bordo di una jeep e perderderti tra le gole di Wadi Mujib ");
+        destinazione9.setImmagine("immagine-tunisia.jpg");
+        destinazione9.setPaese("Giordania");
+        destinazione9.setCitta("Petra,Jerah,Al Karak");
+        destinazioniRepository.save(destinazione9);
+        
+        Destinazioni destinazione10 = new Destinazioni();
+        destinazione10.setNome("Grecia");
+        destinazione10.setDescrizione("Benvenuto a Rodi: Quest’isola può essere la metà perfetta per chi cerca bellissimo mare e spiagge da cartolina, ma anche per chi vuole fare un tuffo nella storia millenaria che l’accompagna.");
+        destinazione10.setImmagine("immagine-tunisia.jpg");
+        destinazione10.setPaese("Grecia");
+        destinazione10.setCitta("Rodi");
+        destinazioniRepository.save(destinazione10);
+        
+        Destinazioni destinazione11 = new Destinazioni();
+        destinazione11.setNome("Italia");
+        destinazione11.setDescrizione("La Sicilia. Il mare, con i suoi colori cangianti. L'isola conserva, inoltre, tracce di culture millenarie. Speciaità gastronomiche");
+        destinazione11.setImmagine("immagine-tunisia.jpg");
+        destinazione11.setPaese("Palermo,Catania");
+        destinazioniRepository.save(destinazione11);
+        
+        Destinazioni destinazione12 = new Destinazioni();
+        destinazione12.setNome("Messico");
+        destinazione12.setDescrizione("Prepara il sombrero e vai alla scoperta della terra dei Maya! A darti il benvenuto ai Caraibi  sarà Playa del Carmen, Cenotes e tuffi dalle liane inclusi. Ammira una delle 7 meraviglie del mondo, Chichen itza!");
+        destinazione12.setImmagine("immagine-tunisia.jpg");
+        destinazione12.setPaese("Tunisia");
+        destinazione12.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione12);
+        
+        Destinazioni destinazione13 = new Destinazioni();
+        destinazione13.setNome("Tunisia");
+        destinazione13.setDescrizione("Descrizione della Tunisia");
+        destinazione13.setImmagine("immagine-tunisia.jpg");
+        destinazione13.setPaese("Tunisia");
+        destinazione13.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione13);
+        
+        Destinazioni destinazione14 = new Destinazioni();
+        destinazione14.setNome("Tunisia");
+        destinazione14.setDescrizione("Descrizione della Tunisia");
+        destinazione14.setImmagine("immagine-tunisia.jpg");
+        destinazione14.setPaese("Tunisia");
+        destinazione14.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione14);
+        
+        Destinazioni destinazione15 = new Destinazioni();
+        destinazione15.setNome("Tunisia");
+        destinazione15.setDescrizione("Descrizione della Tunisia");
+        destinazione15.setImmagine("immagine-tunisia.jpg");
+        destinazione15.setPaese("Tunisia");
+        destinazione15.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione15);
+   }
+}

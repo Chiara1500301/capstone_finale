@@ -1,0 +1,56 @@
+package it.tripagency_capstone_epicode;
+
+import java.util.List;
+import java.util.Locale;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.github.javafaker.Faker;
+
+import it.tripagency_capstone_epicode.entity.User;
+import it.tripagency_capstone_epicode.DAO.*;
+@SpringBootApplication
+public class TripAgencyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TripAgencyApplication.class, args);
+		DestinazioniDao destinazioniDao = new DestinazioniDao();
+        destinazioniDao.initDestinazioni();
+		 createAndInsertRandomUser(100);
+		 }
+	public static void createAndInsertRandomUser(int count ) {
+		UserDao userDao=new UserDao();
+		for(int i = 0; i<count;i++) {
+        // Creazione di un nuovo utente casuale
+        User newUser = createRandomUser();
+
+        // Inserimento del nuovo utente nel database
+        userDao.insertUser(newUser);
+        }
+	        
+        List<User> users = userDao.getAllUsers();
+        for (User user : users) {
+            System.out.println("User ID: " + user.getIdUser());
+            System.out.println("Name: " + user.getName());
+            System.out.println("Cognome: " + user.getCognome());
+            System.out.println("Email: " + user.getEmail());
+            System.out.println("Password: " + user.getPassword());
+            System.out.println("Data di nascita: " + user.getData_nascita());
+            System.out.println("-----------------------------");
+        }
+    }
+
+    public static User createRandomUser() {
+    	Faker faker = new Faker(new Locale("it-IT"));
+        String name = faker.name().firstName();
+        String cognome = faker.name().lastName();
+        String email = faker.internet().emailAddress();
+        String password = faker.internet().password();
+        java.util.Date utilDate = faker.date().birthday();
+        java.sql.Date dataNascita = new java.sql.Date(utilDate.getTime());
+
+        return new User(name, cognome, email, password, dataNascita);
+    }
+
+}

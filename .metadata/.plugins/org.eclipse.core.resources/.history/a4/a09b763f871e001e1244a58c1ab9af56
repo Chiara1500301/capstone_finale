@@ -1,0 +1,104 @@
+package it.tripagency_capstone_epicode.Security.security.services;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import it.tripagency_capstone_epicode.Security.security.enumerates.UserRole;
+import it.tripagency_capstone_epicode.Security.security.exceptions.MyAPIException;
+import it.tripagency_capstone_epicode.Security.security.models.Role;
+import it.tripagency_capstone_epicode.Security.security.payloads.LoginDto;
+import it.tripagency_capstone_epicode.Security.security.payloads.RegisterDto;
+import it.tripagency_capstone_epicode.Security.security.repositories.RoleRepository;
+import it.tripagency_capstone_epicode.Security.security.security.JwtTokenProvider;
+import it.tripagency_capstone_epicode.repository.UserRepository;
+import it.tripagency_capstone_epicode.entity.User;
+
+@Service
+public class AuthServiceImpl implements AuthService {
+
+    private AuthenticationManager authenticationManager;
+    private UserRepository userRepository;
+    private RoleRepository roleRepository;
+    private PasswordEncoder passwordEncoder;
+    private JwtTokenProvider jwtTokenProvider;
+
+
+    public AuthServiceImpl(AuthenticationManager authenticationManager,
+                           UserRepository userRepository,
+                           RoleRepository roleRepository,
+                           PasswordEncoder passwordEncoder,
+                           JwtTokenProvider jwtTokenProvider) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+
+    @Override
+    public String login(LoginDto loginDto) {
+        
+    	Authentication authentication = authenticationManager.authenticate(
+        		new UsernamePasswordAuthenticationToken(
+        				loginDto.getUsername(), loginDto.getPassword()
+        		)
+        ); 
+    	System.out.println(authentication);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String token = jwtTokenProvider.generateToken(authentication);
+        System.out.println(token);
+        return token;
+    }
+
+    @Override
+    public String register(RegisterDto registerDto) {
+
+        // add check for name exists in database
+        if(userRepository.existsByName(registerDto.getUsername())){
+            throw new MyAPIException(HttpStatus.BAD_REQUEST, "Username already exists!");
+        }
+
+        // add check for email exists in database
+        if(userRepository.existsByEmail(registerDto.getEmail())){
+            throw new MyAPIException(HttpStatus.BAD_REQUEST, "Email already exists!");
+        }
+
+        User user = new User();
+        user.setEmail(registerDto.getEmail());
+        user.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+        user.setName(registerDto.getName());
+        user.setCognome(registerDto.getCognome());
+        Set<Role> roles = new HashSet<>();
+        
+        if(registerDto.getRoles() != null) {
+	        registerDto.getRoles().forEach(role -> {
+	        	Role userRole = roleRepository.findByRole(getRole(role)).get();
+	        	roles.add(userRole);
+	        });
+        } else {
+        	Role userRole = roleRepository.findByRole(UserRole.ROLE_USER).get();
+        	roles.add(userRole);
+        }
+        
+        user.setRoles(roles);
+        System.out.println(user);
+        userRepository.save(user);
+
+        return "User registered successfully!.";
+    }
+    
+    public UserRole getRole(String role) {
+    	if(role.equals("ADMIN")) return UserRole.ROLE_ADMIN;
+    	else return UserRole.ROLE_USER;
+    }
+    
+}

@@ -1,0 +1,32 @@
+package it.tripagency_capstone_epicode.services;
+
+import it.tripagency_capstone_epicode.entity.Prenotazione;
+import it.tripagency_capstone_epicode.repository.PrenotazioneRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class PrenotazioneService {
+
+   /* private final PrenotazioneRepository prenotazioneRepository;
+
+    @Autowired
+    public PrenotazioneService(PrenotazioneRepository prenotazioneRepository) {
+        this.prenotazioneRepository = prenotazioneRepository;
+    }
+
+    public List<Prenotazione> getAllPrenotazioni() {
+        return prenotazioneRepository.findAll();
+    }
+
+    public Prenotazione getPrenotazioneById(Long id) {
+        return prenotazioneRepository.findById(id).orElse(null);
+    }
+
+    public Prenotazione createPrenotazione(Prenotazione prenotazione) {
+        return prenotazioneRepository.save(prenotazione);
+    }*/
+
+}

@@ -1,0 +1,36 @@
+package it.tripagency_capstone_epicode.services;
+
+import it.tripagency_capstone_epicode.entity.Recensione;
+import it.tripagency_capstone_epicode.entity.User;
+import it.tripagency_capstone_epicode.repository.RecensioneRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class RecensioneService {
+
+    private final RecensioneRepository recensioneRepository;
+
+    @Autowired
+    public RecensioneService(RecensioneRepository recensioneRepository) {
+        this.recensioneRepository = recensioneRepository;
+    }
+
+    public Recensione createRecensione(Recensione recensione) {
+        return recensioneRepository.save(recensione);
+    }
+
+    public List<Recensione> getRecensioniByUser(Long userId) {
+        User user = new User();
+        user.setIdUser(userId);
+        return recensioneRepository.findByUser(user);
+    }
+
+    public List<Recensione> getRecensioniByValutazione(int valutazioneMinima) {
+        return recensioneRepository.findByValutazioneGreaterThanEqual(valutazioneMinima);
+    }
+
+}
+

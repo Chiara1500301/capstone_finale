@@ -1,0 +1,36 @@
+package it.tripagency_capstone_epicode.controller;
+
+import it.tripagency_capstone_epicode.entity.Prenotazione;
+import it.tripagency_capstone_epicode.services.PrenotazioneService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/prenotazioni")
+public class PrenotazioneController {
+
+    private final PrenotazioneService prenotazioneService;
+
+    @Autowired
+    public PrenotazioneController(PrenotazioneService prenotazioneService) {
+        this.prenotazioneService = prenotazioneService;
+    }
+
+    @GetMapping
+    public List<Prenotazione> getPrenotazioni() {
+        return prenotazioneService.getAllPrenotazioni();
+    }
+
+    @GetMapping("/{id}")
+    public Prenotazione getPrenotazioneById(@PathVariable Long id) {
+        return prenotazioneService.getPrenotazioneById(id);
+    }
+
+    @PostMapping
+    public Prenotazione createPrenotazione(@RequestBody Prenotazione prenotazione) {
+        return prenotazioneService.createPrenotazione(prenotazione);
+    }
+
+}

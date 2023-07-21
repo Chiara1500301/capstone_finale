@@ -1,0 +1,14 @@
+package it.tripagency_capstone_epicode.repository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import it.tripagency_capstone_epicode.controller.UserFaker;
+import it.tripagency_capstone_epicode.entity.User;
+
+@Repository
+public interface UserRepository extends CrudRepository<User, Long> {
+    User findByIdUser(Long idUser);
+    User findByName(String name);
+    User findByCognome(String cognome);
+    User findByEmail(String email);
+}

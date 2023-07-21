@@ -1,0 +1,29 @@
+package it.tripagency_capstone_epicode.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class Recensione {
+	 @Id
+	    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	    private Long idRecensione;
+
+	    @ManyToOne
+	    private User user;
+
+	    @ManyToOne
+	    private Viaggi viaggio;
+
+	    private int valutazione;
+	    private String commento;
+}

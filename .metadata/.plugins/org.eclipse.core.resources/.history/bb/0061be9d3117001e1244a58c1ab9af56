@@ -1,0 +1,40 @@
+package it.tripagency_capstone_epicode.entity;
+
+import java.sql.Date;
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@Table(name="viaggi")
+@Getter
+@Setter
+@NoArgsConstructor
+public class Viaggi {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_viaggi;
+	
+	private Destinazioni destinazioni;
+	
+	private Date periodo_prenotazione;
+	
+	@ManyToOne
+    @JoinColumn(name = "id_destinazione")
+    private Destinazioni destinazione;
+	
+	@ManyToMany(mappedBy = "viaggi")
+    private List<Pacchetti> pacchetti;
+	
+}

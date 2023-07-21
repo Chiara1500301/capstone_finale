@@ -1,0 +1,36 @@
+package it.tripagency_capstone_epicode.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import it.tripagency_capstone_epicode.repository.PacchettoRepository;
+
+@Service
+public class PacchettoServices {
+    private PacchettoRepository pacchettoRepository;
+    
+    @Autowired
+    public PacchettoServices(PacchettoRepository pacchettoRepository) {
+        this.pacchettoRepository = pacchettoRepository;
+    }
+
+    public List<Pacchetto> getPacchettiByDestinazione(String destinazione) {
+        return pacchettoRepository.findByDestinazioneNome(destinazione);
+    }
+    
+    public List<Pacchetto> getPacchettiByPrezzoRange(double minPrice, double maxPrice) {
+        return pacchettoRepository.findByPrezzoBetween(minPrice, maxPrice);
+    }
+    
+    public List<Pacchetto> getPacchettiByDurataRange(int minDuration, int maxDuration) {
+        return pacchettoRepository.findByDurataBetween(minDuration, maxDuration);
+    }
+    
+    public List<Pacchetto> getPacchettiByPasti(String pasti) {
+        return pacchettoRepository.findByPasti(pasti);
+    }
+}
+

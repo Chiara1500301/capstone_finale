@@ -1,0 +1,27 @@
+package it.tripagency_capstone_epicode.entity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Entity
+@Table(name="destinazioni")
+@Getter
+@Setter
+@NoArgsConstructor
+public class Pacchetti {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private Viaggi viaggi;
+	private String alloggio;
+	private Boolean mezza_pensione;
+	private String attivita_di_gruppo;
+	private String spostamenti_in_gruppo;
+	
+}

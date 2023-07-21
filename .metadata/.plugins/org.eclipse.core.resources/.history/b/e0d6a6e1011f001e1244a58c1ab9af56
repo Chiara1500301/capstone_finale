@@ -1,0 +1,48 @@
+package it.tripagency_capstone_epicode.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+import it.tripagency_capstone_epicode.services.DestinazioniService;
+
+@RestController
+@RequestMapping("/destinazioni")
+public class DestinazioniController {
+    private final DestinazioniService destinazioniService;
+
+    @Autowired
+    public DestinazioniController(DestinazioniService destinazioniService) {
+        this.destinazioniService = destinazioniService;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Destinazioni> getDestinazioneById(@PathVariable Long id) {
+        Destinazioni destinazione = destinazioniService.getDestinazioneById(id);
+        if (destinazione != null) {
+            return new ResponseEntity<>(destinazione, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<Iterable<Destinazioni>> getAllDestinazioni() {
+        Iterable<Destinazioni> destinazioni = destinazioniService.getAllDestinazioni();
+        return new ResponseEntity<>(destinazioni, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<Destinazioni> createDestinazione(@RequestBody Destinazioni destinazione) {
+        Destinazioni savedDestinazione = destinazioniService.saveDestinazione(destinazione);
+        return new ResponseEntity<>(savedDestinazione, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteDestinazioneById(@PathVariable Long id) {
+        destinazioniService.deleteDestinazioneById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}

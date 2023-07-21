@@ -1,0 +1,49 @@
+package it.tripagency_capstone_epicode;
+
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
+import it.tripagency_capstone_epicode.entity.User;
+import it.tripagency_capstone_epicode.repository.UserRepository;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Date;
+import java.util.List;
+
+
+public class CsvDataImporter {
+    private final UserRepository userRepository;
+
+   
+    public CsvDataImporter(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public static void importUserDataFromCsv(String filePath) {
+        try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
+            List<String[]> csvData = reader.readAll();
+
+            for (String[] row : csvData) {
+                String name = row[0];
+                String cognome = row[1];
+                String email = row[2];
+                String password = row[3];
+                String dataNascitaString = row[4];
+
+                // Converte la stringa della data in un oggetto Date
+                Date dataNascita = Date.valueOf(dataNascitaString);
+
+                User user = new User();
+                user.setName(name);
+                user.setCognome(cognome);
+                user.setEmail(email);
+                user.setPassword(password);
+                user.setData_nascita(dataNascita);
+
+                userRepository.save(user);
+            }
+        } catch (IOException | CsvException e) {
+            e.printStackTrace();
+        }
+    }
+}
+

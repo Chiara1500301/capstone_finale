@@ -1,0 +1,99 @@
+package it.tripagency_capstone_epicode;
+
+import java.util.List;
+import java.util.Locale;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.github.javafaker.Faker;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import it.tripagency_capstone_epicode.entity.User;
+import it.tripagency_capstone_epicode.entity.Viaggi;
+import it.tripagency_capstone_epicode.DAO.*;
+@SpringBootApplication
+public class TripAgencyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TripAgencyApplication.class, args);
+		DestinazioniDao destinazioniDao = new DestinazioniDao();
+        destinazioniDao.initDestinazioni();
+		 createAndInsertRandomUser(100);
+		    // Ottenere i pacchetti per una destinazione di esempio
+		    Destinazioni destinazione = new Destinazioni();
+		    destinazione.setIdDestinazione(1); // ID della destinazione desiderata
+
+		    PacchettoDao pacchettoDao = new PacchettoDao();
+		    List<Pacchetto> pacchetti = pacchettoDao.getPacchettiByDestinazione(destinazione);
+
+		    // Stampare i pacchetti nella console
+		    for (Pacchetto pacchetto : pacchetti) {
+		        System.out.println("Pacchetto ID: " + pacchetto.getIdPacchetto());
+		        System.out.println("Alloggio: " + pacchetto.getAlloggio());
+		        System.out.println("Mezza pensione: " + pacchetto.isMezzaPensione());
+		        System.out.println("Assicurazione base: " + pacchetto.isAssicurazioneBase());
+		        System.out.println("Attività di gruppo: " + pacchetto.isAttivitàDiGruppo());
+		        System.out.println("Spostamenti di gruppo: " + pacchetto.isSpostamentiDiGruppo());
+		        System.out.println("Prezzo minimo: " + pacchetto.getPrezzoMinimo());
+		        System.out.println("Prezzo massimo: " + pacchetto.getPrezzoMassimo());
+		        System.out.println("Durata minima: " + pacchetto.getDurataMinima());
+		        System.out.println("Durata massima: " + pacchetto.getDurataMassima());
+		        System.out.println("Data inizio: " + pacchetto.getDataInizio());
+
+		        Viaggi viaggio = pacchetto.getViaggio();
+		        System.out.println("Viaggio ID: " + viaggio.getIdViaggio());
+		        System.out.println("Periodo prenotazione: " + viaggio.getPeriodoPrenotazione());
+
+		        Destinazioni pacchettoDestinazione = pacchetto.getDestinazione();
+		        System.out.println("Destinazione ID: " + pacchettoDestinazione.getIdDestinazione());
+		        System.out.println("Nome destinazione: " + pacchettoDestinazione.getNome());
+		        System.out.println("Descrizione destinazione: " + pacchettoDestinazione.getDescrizione());
+		        System.out.println("Immagine destinazione: " + pacchettoDestinazione.getImmagine());
+		        System.out.println("Paese destinazione: " + pacchettoDestinazione.getPaese());
+		        System.out.println("Città destinazione: " + pacchettoDestinazione.getCitta());
+
+		        User pacchettoUser = pacchetto.getUser();
+		        System.out.println("Utente ID: " + pacchettoUser.getIdUser());
+		        System.out.println("name utente: " + pacchettoUser.getName());
+		        System.out.println("Password utente: " + pacchettoUser.getPassword());
+
+		        System.out.println("--------------------------------------");
+		    }
+		 }
+	public static void createAndInsertRandomUser(int count ) {
+		UserDao userDao=new UserDao();
+		for(int i = 0; i<count;i++) {
+        // Creazione di un nuovo utente casuale
+        User newUser = createRandomUser();
+
+        // Inserimento del nuovo utente nel database
+        userDao.insertUser(newUser);
+        }
+        List<User> users = userDao.getAllUsers();
+        for (User user : users) {
+            System.out.println("User ID: " + user.getIdUser());
+            System.out.println("Name: " + user.getName());
+            System.out.println("Cognome: " + user.getCognome());
+            System.out.println("Email: " + user.getEmail());
+            System.out.println("Password: " + user.getPassword());
+            System.out.println("Data di nascita: " + user.getData_nascita());
+            System.out.println("-----------------------------");
+        }
+    }
+
+    public static User createRandomUser() {
+    	Faker faker = new Faker(new Locale("it-IT"));
+        Long idUser = faker.number().randomNumber();
+        String name = faker.name().firstName();
+        String cognome = faker.name().lastName();
+        String email = faker.internet().emailAddress();
+        String password = faker.internet().password();
+        java.util.Date utilDate = faker.date().birthday();
+        java.sql.Date dataNascita = new java.sql.Date(utilDate.getTime());
+
+        return new User(idUser, name, cognome, email, password, dataNascita);
+    }
+
+}

@@ -1,0 +1,16 @@
+package it.tripagency_capstone_epicode.repository;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+
+@Repository
+public interface DestinazioniRepository extends CrudRepository<Destinazioni, Long> {
+    Destinazioni findByIdDestinazione(Long idDestinazione);
+    Iterable<Destinazioni> findAll();
+    @Override
+    <S extends Destinazioni> S save(S entity);
+    void deleteByIdDestinazione(Long idDestinazione);
+}
+

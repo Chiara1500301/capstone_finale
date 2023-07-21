@@ -1,0 +1,85 @@
+package it.tripagency_capstone_epicode.DAO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.ErrorManager;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+@Repository
+public class DestinazioniDao {
+	private static final String DB_URL = "jdbc:postgresql://localhost:5432/testjpa";
+    private static final String DB_USERNAME = "postgres";
+    private static final String DB_PASSWORD = "root";
+    
+    public void initDestinazioni() {
+    	List <Destinazioni>destinazioni= createDestinazioniFisse();
+    	for(Destinazioni destinazione: destinazioni ) {
+    		insertDestinazioni(destinazione);
+    		 System.out.println("Destinazione inserita: " + destinazione.getNome());
+    	}
+    	
+    }
+    
+    public void insertDestinazioni(Destinazioni destinazione) {
+    	try(Connection connection = DriverManager.getConnection(DB_URL,DB_USERNAME,DB_PASSWORD)){
+    		 String query = "INSERT INTO destinazioni (id_destinazione, nome, descrizione, immagine, paese, citta) VALUES (?, ?, ?, ?, ?, ?)";
+             PreparedStatement statement = connection.prepareStatement(query);
+             statement.setLong(1, destinazione.getIdDestinazione());
+             statement.setString(2, destinazione.getNome());
+             statement.setString(3, destinazione.getDescrizione());
+             statement.setString(4, destinazione.getImmagine());
+             statement.setString(5, destinazione.getPaese());
+             statement.setString(6, destinazione.getCitta());
+
+             statement.executeUpdate();
+
+             System.out.println("Destinazione inserita con successo");
+         } catch (SQLException e) {
+             e.printStackTrace();
+    }
+    }
+    private List<Destinazioni> createDestinazioniFisse() {
+        List<Destinazioni> destinazioni = new ArrayList<>();
+
+        destinazioni.add(new Destinazioni(1L, "Egitto", "Descrizione Egitto", "egitto.jpg", "Egitto", "Cairo"));
+        destinazioni.add(new Destinazioni(2L, "Marocco", "Descrizione Marocco", "marocco.jpg", "Marocco", "Marrakech"));
+        destinazioni.add(new Destinazioni(3L, "Kenya", "Descrizione Kenya", "kenya.jpg", "Kenya", "Nairobi"));
+        destinazioni.add(new Destinazioni(4L, "Rep. Dominicana", "Descrizione Rep. Dominicana", "rep_dominicana.jpg", "Rep. Dominicana", "Punta Cana"));
+        destinazioni.add(new Destinazioni(5L, "Cuba", "Descrizione Cuba", "cuba.jpg", "Cuba", "L'Avana"));
+        destinazioni.add(new Destinazioni(6L, "Messico", "Descrizione Messico", "messico.jpg", "Messico", "Playa Punta Esmeralda"));
+        destinazioni.add(new Destinazioni(7L, "Brasile", "Descrizione Brasile", "Brasile.jpg", "Brasile", "San Paolo"));
+        destinazioni.add(new Destinazioni(8L, "Regno Unito", "Descrizione Regno Unito", "Londra.jpg", "Regno Unito", "Londra"));
+        destinazioni.add(new Destinazioni(9L, "Stati Uniti", "Descrizione Stati Uniti", "New York.jpg", "Stati Uniti", "New York"));
+        destinazioni.add(new Destinazioni(10L, "Italia", "Descrizione Italia", "Italia.jpg", "Italia", "Roma,Milano,Genova(5 Terre), Rimini,Riccione,Gallipoli,Napoli,Palermo,Costa Smeralda"));
+        destinazioni.add(new Destinazioni(11L, "Spagna", "Descrizione Spagna", "Barcellona.jpg", "Spagna", "Barcellona,Madrid,Palma de Maiorca,Seville"));
+        destinazioni.add(new Destinazioni(12L, "Giordania", "Descrizione Giordania", "Giordania.jpg", "Giordania", "Petra"));
+        destinazioni.add(new Destinazioni(13L, "Zanzibar", "Descrizione Zanzibar", "Zanzibar.jpg", "Zanzibar", "Michamvi"));
+        destinazioni.add(new Destinazioni(14L, "Tunisia", "Descrizione Tunisia", "Tunisia.jpg", "Tunisia", "Djerba"));
+        destinazioni.add(new Destinazioni(15L, "Maldive", "Descrizione Maldive", "Maldive.jpg", "Maldive", "Hanimaadhoo"));
+        
+        for (Destinazioni destinazione : destinazioni) {
+            if (destinazione.getIdDestinazione() == null) {
+                throw new IllegalArgumentException("idDestinazione cannot be null for Destinazioni: " + destinazione);
+            }
+        }
+        return destinazioni;
+   }
+
+    @Autowired
+    private EntityManager entityManager;
+
+    public List<Destinazioni> findAllDestinazioni() {
+        TypedQuery<Destinazioni> query = entityManager.createQuery("SELECT d FROM Destinazioni d", Destinazioni.class);
+        return query.getResultList();
+    }
+}
+

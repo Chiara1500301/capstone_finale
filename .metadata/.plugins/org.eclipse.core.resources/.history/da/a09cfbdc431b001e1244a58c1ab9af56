@@ -1,0 +1,29 @@
+package it.tripagency_capstone_epicode.repository;
+import java.util.Locale;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.github.javafaker.Faker;
+
+import it.tripagency_capstone_epicode.entity.User;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+	public static User createRandomUser() {
+    	Faker faker = new Faker(new Locale("it-IT"));
+        String name = faker.name().firstName();
+        String cognome = faker.name().lastName();
+        String email = faker.internet().emailAddress();
+        String password = faker.internet().password();
+        java.util.Date utilDate = faker.date().birthday();
+        java.sql.Date dataNascita = new java.sql.Date(utilDate.getTime());
+
+        return new User( name, cognome, email, password, dataNascita);
+    }
+
+    User findByIdUser(Long idUser);
+    User findByName(String name);
+    User findByCognome(String cognome);
+    User findByEmail(String email);
+}

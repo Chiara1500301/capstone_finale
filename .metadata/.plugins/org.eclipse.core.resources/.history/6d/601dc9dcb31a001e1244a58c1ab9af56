@@ -1,0 +1,68 @@
+package it.tripagency_capstone_epicode.repository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import java.time.LocalDate;
+import java.util.List;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+
+public interface PacchettoRepository {
+
+    List<Pacchetto> findByPrezzoBetween(double minPrezzo, double maxPrezzo);
+
+    List<Pacchetto> findByDurataBetween(int minDurata, int maxDurata);
+
+    List<Pacchetto> findByDataInizioAfter(LocalDate data);
+
+    List<Pacchetto> findByDestinazione(Destinazioni destinazione);
+}
+
+class PacchettoRepositoryImpl implements PacchettoRepository {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public List<Pacchetto> findByPrezzoBetween(double minPrezzo, double maxPrezzo) {
+        TypedQuery<Pacchetto> query = entityManager.createQuery(
+                "SELECT p FROM Pacchetto p WHERE p.prezzo >= :minPrezzo AND p.prezzo <= :maxPrezzo",
+                Pacchetto.class
+        );
+        query.setParameter("minPrezzo", minPrezzo);
+        query.setParameter("maxPrezzo", maxPrezzo);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Pacchetto> findByDurataBetween(int minDurata, int maxDurata) {
+        TypedQuery<Pacchetto> query = entityManager.createQuery(
+                "SELECT p FROM Pacchetto p WHERE p.durata >= :minDurata AND p.durata <= :maxDurata",
+                Pacchetto.class
+        );
+        query.setParameter("minDurata", minDurata);
+        query.setParameter("maxDurata", maxDurata);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Pacchetto> findByDataInizioAfter(LocalDate data) {
+        TypedQuery<Pacchetto> query = entityManager.createQuery(
+                "SELECT p FROM Pacchetto p WHERE p.dataInizio > :data",
+                Pacchetto.class
+        );
+        query.setParameter("data", data);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Pacchetto> findByDestinazione(Destinazioni destinazione) {
+        TypedQuery<Pacchetto> query = entityManager.createQuery(
+                "SELECT p FROM Pacchetto p WHERE p.destinazione = :destinazione",
+                Pacchetto.class
+        );
+        query.setParameter("destinazione", destinazione);
+        return query.getResultList();
+    }
+}

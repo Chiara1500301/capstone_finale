@@ -1,0 +1,54 @@
+package it.tripagency_capstone_epicode.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import it.tripagency_capstone_epicode.entity.Prenotazioni;
+import it.tripagency_capstone_epicode.entity.Utenti;
+import it.tripagency_capstone_epicode.exception.UtentiNotFoundException;
+import it.tripagency_capstone_epicode.services.PrenotazioniServices;
+import it.tripagency_capstone_epicode.repository.UtentiRepository;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/prenotazioni")
+public class PrenotazioniController {
+    private final PrenotazioniServices prenotazioniServices;
+    private final UtentiRepository utentiRepository;
+
+    @Autowired
+    public PrenotazioniController(PrenotazioniServices prenotazioniServices, UtentiRepository utentiRepository) {
+        this.prenotazioniServices = prenotazioniServices;
+        this.utentiRepository = utentiRepository;
+    }
+
+    @GetMapping("/by-pacchetto/{pacchettoId}")
+    public List<Prenotazioni> getPrenotazioniByPacchettoId(@PathVariable Long pacchettoId) {
+        return prenotazioniServices.getPrenotazioniByPacchettoId(pacchettoId);
+    }
+
+    @GetMapping("/by-date")
+    public List<Prenotazioni> getPrenotazioniByDate(@RequestParam("startDate") LocalDate startDate,
+                                                   @RequestParam("endDate") LocalDate endDate) {
+        return prenotazioniServices.getPrenotazioniByDate(startDate, endDate);
+    }
+
+    @GetMapping("/by-utente/{utenteId}")
+    public List<Prenotazioni> getPrenotazioniByUtente(@PathVariable Long utenteId) {
+        Optional<Utenti> utenteOptional = utentiRepository.findById(utenteId);
+        if (utenteOptional.isPresent()) {
+            Utenti utente = utenteOptional.get();
+            return prenotazioniServices.getPrenotazioniByUtente(utente);
+        } else {
+            throw new UtentiNotFoundException("Utente non trovato con ID: " + utenteId);
+        }
+    }
+
+    @GetMapping("/count/{pacchettoId}")
+    public int getCountPrenotazioniByPacchettoId(@PathVariable Long pacchettoId) {
+        return prenotazioniServices.getCountPrenotazioniByPacchettoId(pacchettoId);
+    }
+}

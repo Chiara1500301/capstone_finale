@@ -1,0 +1,61 @@
+package it.tripagency_capstone_epicode.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import it.tripagency_capstone_epicode.entity.Prenotazioni;
+import it.tripagency_capstone_epicode.entity.Utenti;
+import it.tripagency_capstone_epicode.exception.PrenotazioneNotFoundException;
+import it.tripagency_capstone_epicode.repository.PacchettoRepository;
+import it.tripagency_capstone_epicode.repository.PrenotazioniRepository;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class PrenotazioniService {
+
+    private final PrenotazioniRepository prenotazioniRepository;
+    private final PacchettoRepository pacchettoRepository;
+
+    @Autowired
+    public PrenotazioniService(PrenotazioniRepository prenotazioniRepository, PacchettoRepository pacchettoRepository) {
+        this.prenotazioniRepository = prenotazioniRepository;
+        this.pacchettoRepository = pacchettoRepository;
+    }
+
+    public Prenotazioni createPrenotazione(Prenotazioni prenotazione) {
+        Prenotazioni nuovaPrenotazione = prenotazioniRepository.save(prenotazione);
+
+        if (nuovaPrenotazione.isPacchettoDisponibile()) {
+            nuovaPrenotazione.prenotaPacchetto();
+            pacchettoRepository.save(nuovaPrenotazione.getPacchetto());
+        }
+
+        return nuovaPrenotazione;
+    }
+    public Optional<Prenotazioni> getPrenotazioneById(Long id) {
+        return prenotazioniRepository.findById(id);
+    }
+
+    public Prenotazioni updatePrenotazione(Long id, Prenotazioni prenotazione) {
+        // Verifica che la prenotazione con l'ID specificato esista
+        if (!prenotazioniRepository.existsById(id)) {
+            throw new PrenotazioneNotFoundException("Prenotazione non trovata con ID: " + id);
+        }
+
+        prenotazione.setId(id);
+        return prenotazioniRepository.save(prenotazione);
+    }
+
+    public void deletePrenotazione(Long id) {
+        // Verifica che la prenotazione con l'ID specificato esista
+        if (!prenotazioniRepository.existsById(id)) {
+            throw new PrenotazioneNotFoundException("Prenotazione non trovata con ID: " + id);
+        }
+
+        prenotazioniRepository.deleteById(id);
+    }
+
+}

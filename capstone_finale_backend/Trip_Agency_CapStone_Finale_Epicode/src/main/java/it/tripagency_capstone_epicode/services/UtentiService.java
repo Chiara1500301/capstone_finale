@@ -1,0 +1,64 @@
+package it.tripagency_capstone_epicode.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import it.tripagency_capstone_epicode.entity.Utenti;
+import it.tripagency_capstone_epicode.repository.UtentiRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UtentiService {
+    private final UtentiRepository userRepository;
+
+    @Autowired
+    public UtentiService(UtentiRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public Optional<Utenti> getUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    public Optional<Utenti> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public List<Utenti> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public List<Utenti> getUsersByName(String nome) {
+        return userRepository.findByNome(nome);
+    }
+
+    public List<Utenti> getUsersBySurname(String cognome) {
+        return userRepository.findByCognome(cognome);
+    }
+
+    public Utenti saveUser(Utenti user) {
+        return userRepository.save(user);
+    }
+
+    public List<Utenti> saveUsers(List<Utenti> users) {
+        return userRepository.saveAll(users);
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+    
+    public Optional<Utenti> getRandomUser() {
+        return userRepository.findRandomUser();
+    }
+    
+    public Utenti createRandomUser() {
+        // Genera un utente casuale utilizzando il Faker o altri metodi
+        Utenti randomUser = new Utenti();
+        // Popola i campi dell'utente in base alle tue esigenze
+        
+        // Salva l'utente nel database utilizzando il repository
+        return userRepository.save(randomUser);
+    }
+}

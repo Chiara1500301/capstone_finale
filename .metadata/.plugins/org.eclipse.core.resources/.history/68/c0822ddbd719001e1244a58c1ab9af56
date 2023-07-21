@@ -1,0 +1,40 @@
+package it.tripagency_capstone_epicode;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.*;
+@SpringBootApplication
+public class TripAgencyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TripAgencyApplication.class, args);
+		
+		String file ="src\\user.csv";
+		BufferedReader reader= null;
+		String line=" ";
+		try {
+			reader=new BufferedReader(new FileReader(file));
+			while((line = reader.readLine())!= null)  {
+				
+				String[]row=line.split(",");
+				for(String index : row) {
+					System.out.printf("%-10s", index);
+				}
+				System.out.println();
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				reader.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+	}
+
+}

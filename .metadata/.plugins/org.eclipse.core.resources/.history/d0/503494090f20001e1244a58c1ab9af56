@@ -1,0 +1,51 @@
+package it.tripagency_capstone_epicode.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import it.tripagency_capstone_epicode.entity.Prenotazioni;
+import it.tripagency_capstone_epicode.services.PrenotazioniServices;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/prenotazioni")
+public class PrenotazioniController {
+    private final PrenotazioniServices prenotazioniServices;
+
+    @Autowired
+    public PrenotazioniController(PrenotazioniServices prenotazioniServices) {
+        this.prenotazioniServices = prenotazioniServices;
+    }
+
+    @GetMapping("/")
+    public List<Prenotazioni> getAllPrenotazioni() {
+        return prenotazioniServices.getAllPrenotazioni();
+    }
+
+    @GetMapping("/{id}")
+    public Prenotazioni getPrenotazioneById(@PathVariable("id") Long id) {
+        return prenotazioniServices.getPrenotazioneById(id);
+    }
+
+    @GetMapping("/utente/{utenteId}")
+    public List<Prenotazioni> getPrenotazioniByUtente(@PathVariable("utenteId") Long utenteId) {
+        return prenotazioniServices.getPrenotazioniByUtente(utenteId);
+    }
+
+    @GetMapping("/pacchetto/{pacchettoId}")
+    public List<Prenotazioni> getPrenotazioniByPacchetto(@PathVariable("pacchettoId") Long pacchettoId) {
+        return prenotazioniServices.getPrenotazioniByPacchetto(pacchettoId);
+    }
+
+    @PostMapping("/")
+    public Prenotazioni createPrenotazione(@RequestBody Prenotazioni prenotazione) {
+        return prenotazioniServices.createPrenotazione(prenotazione);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePrenotazione(@PathVariable("id") Long id) {
+        prenotazioniServices.deletePrenotazione(id);
+    }
+}
+

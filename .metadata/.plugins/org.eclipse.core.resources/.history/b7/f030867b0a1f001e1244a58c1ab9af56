@@ -1,0 +1,5 @@
+package it.tripagency_capstone_epicode.exception;
+
+public class UserNotFoundException {
+
+}

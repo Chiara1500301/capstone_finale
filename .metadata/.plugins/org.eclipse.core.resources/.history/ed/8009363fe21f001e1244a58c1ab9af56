@@ -1,0 +1,52 @@
+package it.tripagency_capstone_epicode.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import it.tripagency_capstone_epicode.controller.UserFaker;
+import it.tripagency_capstone_epicode.entity.UserEntity;
+import it.tripagency_capstone_epicode.repository.userRepository1;
+
+@Service
+public class UserService {
+    private final userRepository1 userRepository;
+
+    @Autowired
+    public UserService(userRepository1 userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public UserEntity createRandomUser() {
+        UserEntity randomUser = UserFaker.generateRandomUser();
+        UserEntity savedUser = userRepository.save(randomUser);
+        return savedUser;
+    }
+
+    public UserEntity getUserById(Long userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
+
+    public Iterable<UserEntity> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public UserEntity updateUser(UserEntity user) {
+        // Controlla se l'utente esiste nel database prima di aggiornarlo
+        if (userRepository.existsById(user.getIdUser())) {
+            return userRepository.save(user);
+        }
+        return null;
+    }
+
+    public void deleteUserById(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    public long countUsers() {
+        return userRepository.count();
+    }
+
+    public void createUser(UserEntity user) {
+        userRepository.save(user);
+    }
+}

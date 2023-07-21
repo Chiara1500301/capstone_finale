@@ -1,0 +1,86 @@
+package it.tripagency_capstone_epicode;
+
+import java.time.LocalDate;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import it.tripagency_capstone_epicode.repository.DestinazioniRepository;
+import it.tripagency_capstone_epicode.repository.PacchettoRepository;
+
+@SpringBootApplication
+public class TripAgencyApplication {
+
+    private final DestinazioniRepository destinazioniRepository;
+
+    public TripAgencyApplication(DestinazioniRepository destinazioniRepository) {
+        this.destinazioniRepository = destinazioniRepository;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(TripAgencyApplication.class, args);
+    }
+    @Bean
+    public void initDestinazioni(DestinazioniRepository destinazioniRepository) {
+        Destinazioni destinazione1 = new Destinazioni(1L, "Marocco", "Descrizione del Marocco", "immagine-marocco.jpg", "Marocco", "Città del Marocco");
+        destinazioniRepository.save(destinazione1);
+
+        Destinazioni destinazione2 = new Destinazioni(2L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione2);
+
+        Destinazioni destinazione3 = new Destinazioni(3L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione3);
+        
+        Destinazioni destinazione4 = new Destinazioni(4L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione4);
+        
+        Destinazioni destinazione5 = new Destinazioni(5L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione5);
+        
+        Destinazioni destinazione6 = new Destinazioni(6L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione6);
+        
+        Destinazioni destinazione7 = new Destinazioni(7L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione7);
+        
+        Destinazioni destinazione8 = new Destinazioni(8L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione8);
+        
+        Destinazioni destinazione9 = new Destinazioni(9L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione9);
+        
+        Destinazioni destinazione10 = new Destinazioni(10L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione10);
+        
+        Destinazioni destinazione11 = new Destinazioni(11L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione11);
+        
+        Destinazioni destinazione12 = new Destinazioni(12L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione12);
+        
+        Destinazioni destinazione13 = new Destinazioni(13L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione13);
+        
+        Destinazioni destinazione14 = new Destinazioni(14L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione14);
+        
+        Destinazioni destinazione15 = new Destinazioni(15L, "Kenya", "Descrizione del Kenya", "immagine-kenya.jpg", "Kenya", "Città del Kenya");
+        destinazioniRepository.save(destinazione15);
+    }
+    @Bean
+    public void initPacchetti(PacchettoRepository pacchettoRepository, DestinazioniRepository destinazioniRepository) {
+        Destinazioni destinazione1 = destinazioniRepository.findByIdDestinazione(1L);
+        Pacchetto pacchetto1 = new Pacchetto(destinazione1.getIdDestinazione(), "Alloggio Pacchetto 1", true, true, true, true, 400.0, 1000.0, 4, 7, LocalDate.now());
+        pacchettoRepository.save(pacchetto1);
+
+        Destinazioni destinazione2 = destinazioniRepository.findByIdDestinazione(2L);
+        Pacchetto pacchetto2 = new Pacchetto(destinazione2.getIdDestinazione(), "Alloggio Pacchetto 2", false, true, true, true, 500.0, 1500.0, 4, 10, LocalDate.now());
+        pacchettoRepository.save(pacchetto2);
+
+    }
+
+   
+}

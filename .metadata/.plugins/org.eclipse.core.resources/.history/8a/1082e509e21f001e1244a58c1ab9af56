@@ -1,0 +1,42 @@
+package it.tripagency_capstone_epicode.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Prenotazione {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idPrenotazione;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "id_pacchetto")
+    private Pacchetto pacchetto;
+
+    @Column(name = "data_inizio")
+    private LocalDate dataInizio;
+
+    @Column(name = "data_fine")
+    private LocalDate dataFine;
+
+    @Column(name = "numero_persone")
+    private int numeroPersone;
+
+    @Column(name = "data_prenotazione")
+    private LocalDate dataPrenotazione;
+
+    @Column(name = "prezzo_totale")
+    private double prezzoTotale;
+
+
+}

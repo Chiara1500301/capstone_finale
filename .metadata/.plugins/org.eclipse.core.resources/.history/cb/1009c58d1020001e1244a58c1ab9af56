@@ -1,0 +1,45 @@
+package it.tripagency_capstone_epicode.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import it.tripagency_capstone_epicode.entity.Prenotazioni;
+import it.tripagency_capstone_epicode.entity.Utenti;
+import it.tripagency_capstone_epicode.services.PrenotazioniServices;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@RestController
+@RequestMapping("/prenotazioni")
+public class PrenotazioniController {
+    private final PrenotazioniServices prenotazioniServices;
+
+    @Autowired
+    public PrenotazioniController(PrenotazioniServices prenotazioniServices) {
+        this.prenotazioniServices = prenotazioniServices;
+    }
+
+    @GetMapping("/by-pacchetto/{pacchettoId}")
+    public List<Prenotazioni> getPrenotazioniByPacchettoId(@PathVariable Long pacchettoId) {
+        return prenotazioniServices.getPrenotazioniByPacchettoId(pacchettoId);
+    }
+
+    @GetMapping("/by-date")
+    public List<Prenotazioni> getPrenotazioniByDate(@RequestParam("startDate") LocalDate startDate,
+                                                   @RequestParam("endDate") LocalDate endDate) {
+        return prenotazioniServices.getPrenotazioniByDate(startDate, endDate);
+    }
+
+    @GetMapping("/by-utente/{utenteId}")
+    public List<Prenotazioni> getPrenotazioniByUtente(@PathVariable Long utenteId) {
+        // Implementa la logica per ottenere l'oggetto Utenti in base all'utenteId
+        Utenti utente = ...;
+        return prenotazioniServices.getPrenotazioniByUtente(utente);
+    }
+
+    @GetMapping("/count/{pacchettoId}")
+    public int getCountPrenotazioniByPacchettoId(@PathVariable Long pacchettoId) {
+        return prenotazioniServices.getCountPrenotazioniByPacchettoId(pacchettoId);
+    }
+}

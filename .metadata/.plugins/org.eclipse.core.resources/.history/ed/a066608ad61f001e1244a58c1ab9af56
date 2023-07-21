@@ -1,0 +1,55 @@
+/*package it.tripagency_capstone_epicode.services;
+
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import it.tripagency_capstone_epicode.entity.Prenotazione;
+import it.tripagency_capstone_epicode.entity.User;
+import it.tripagency_capstone_epicode.repository.PrenotazioneRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Service
+public class PrenotazioneService {
+
+    private final PrenotazioneRepository prenotazioneRepository;
+    
+    @Autowired
+    public PrenotazioneService(PrenotazioneRepository prenotazioneRepository) {
+    	this.prenotazioneRepository = prenotazioneRepository;
+    }
+    public PrenotazioneService() {
+		this.prenotazioneRepository = null;
+	
+    }
+
+    public Prenotazione createPrenotazione(Prenotazione prenotazione) {
+        Pacchetto pacchetto = prenotazione.getPacchetto();
+
+        int numeroPrenotazioni = prenotazioneRepository.countByPacchetto(pacchetto);
+
+        if (numeroPrenotazioni >= 50) {
+            throw new IllegalStateException("Il pacchetto non è disponibile per ulteriori prenotazioni");
+        }
+
+        // Calcola il prezzo totale in base ai criteri specificati
+        double prezzoMinimo = 400;
+        double prezzoMassimo = 2000;
+        // Implementa la logica per calcolare il prezzo totale
+
+        prenotazione.setPrezzoTotale(prezzoMassimo);
+
+        return prenotazioneRepository.save(prenotazione);
+    }
+
+    public List<Prenotazione> getPrenotazioniByUser(User user) {
+        return prenotazioneRepository.findByUser(user);
+    }
+
+    public List<Prenotazione> getPrenotazioniByDateRange(LocalDate startDate, LocalDate endDate) {
+        return prenotazioneRepository.findByDataInizioBetween(startDate, endDate);
+    }
+
+}*/
+

@@ -1,0 +1,25 @@
+package it.tripagency_capstone_epicode;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import it.tripagency_capstone_epicode.repository.UserRepository;
+
+@SpringBootApplication
+public class TripAgencyApplication {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public static void main(String[] args) {
+        SpringApplication.run(TripAgencyApplication.class, args);
+    }
+
+    @Autowired
+    public void importUserDataFromCsv() {
+        String csvFilePath = "src/user.csv";
+        CsvDataImporter csvDataImporter = new CsvDataImporter(userRepository);
+        csvDataImporter.importUserDataFromCsv(csvFilePath);
+    }
+}

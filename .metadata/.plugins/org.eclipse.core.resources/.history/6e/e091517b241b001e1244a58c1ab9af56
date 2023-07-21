@@ -1,0 +1,42 @@
+package it.tripagency_capstone_epicode;
+
+import java.util.List;
+import java.util.Locale;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.github.javafaker.Faker;
+
+import it.tripagency_capstone_epicode.entity.User;
+import it.tripagency_capstone_epicode.DAO.*;
+@SpringBootApplication
+public class TripAgencyApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(TripAgencyApplication.class, args);
+		DestinazioniDao destinazioniDao = new DestinazioniDao();
+        destinazioniDao.initDestinazioni();
+		 createAndInsertRandomUser(100);
+		 }
+	
+
+    private static void createAndInsertRandomUser(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public static User createRandomUser() {
+    	Faker faker = new Faker(new Locale("it-IT"));
+        String name = faker.name().firstName();
+        String cognome = faker.name().lastName();
+        String email = faker.internet().emailAddress();
+        String password = faker.internet().password();
+        java.util.Date utilDate = faker.date().birthday();
+        java.sql.Date dataNascita = new java.sql.Date(utilDate.getTime());
+
+        return new User(name, cognome, email, password, dataNascita);
+    }
+
+}

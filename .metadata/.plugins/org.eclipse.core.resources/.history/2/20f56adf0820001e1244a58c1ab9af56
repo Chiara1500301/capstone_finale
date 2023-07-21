@@ -1,0 +1,27 @@
+package it.tripagency_capstone_epicode.services;
+
+import java.util.List;
+
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import it.tripagency_capstone_epicode.repository.PacchettoRepository;
+
+public class PacchettoServices {
+    private PacchettoRepository pacchettoRepository;
+    
+    public List<Pacchetto> getPacchettiByDestinazione(String destinazione) {
+        return pacchettoRepository.findByDestinazioneNome(destinazione);
+    }
+    
+    public List<Pacchetto> getPacchettiByPrezzoRange(double minPrice, double maxPrice) {
+        return pacchettoRepository.findByPrezzoBetween(minPrice, maxPrice);
+    }
+    
+    public List<Pacchetto> getPacchettiByDurataRange(int minDuration, int maxDuration) {
+        return pacchettoRepository.findByDurataBetween(minDuration, maxDuration);
+    }
+    
+    public List<Pacchetto> getPacchettiByPasti(String pasti) {
+        return pacchettoRepository.findByPasti(pasti);
+    }
+}
+

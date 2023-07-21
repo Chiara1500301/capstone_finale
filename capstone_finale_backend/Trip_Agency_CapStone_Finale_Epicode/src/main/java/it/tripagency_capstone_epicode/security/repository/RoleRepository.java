@@ -1,0 +1,14 @@
+package it.tripagency_capstone_epicode.security.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import it.tripagency_capstone_epicode.security.entity.ERole;
+import it.tripagency_capstone_epicode.security.entity.Role;
+
+import java.util.Optional;
+
+public interface RoleRepository extends JpaRepository<Role, Long> {
+    
+	Optional<Role> findByRoleName(ERole roleName);
+
+}

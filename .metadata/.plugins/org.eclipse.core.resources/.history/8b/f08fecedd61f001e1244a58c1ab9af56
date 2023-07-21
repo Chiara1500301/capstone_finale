@@ -1,0 +1,33 @@
+/*package it.tripagency_capstone_epicode.controller;
+
+import com.github.javafaker.Faker;
+
+import it.tripagency_capstone_epicode.entity.User;
+
+import java.util.Locale;
+
+public class UserFaker {
+    public static User generateRandomUser() {
+                Faker faker = new Faker(new Locale("it-IT"));
+        String name = faker.name().firstName();
+        String cognome = faker.name().lastName();
+        String username = generateUsername(name, cognome); // Genera l'username basato sul nome e cognome
+        String email = generateEmail(name, username); // Genera l'email basata sul nome e username
+        String password = faker.internet().password();
+        java.util.Date utilDate = faker.date().birthday();
+        java.sql.Date dataNascita = new java.sql.Date(utilDate.getTime());
+
+        return new User(name, cognome, email, password, dataNascita);
+    }
+
+    private static String generateUsername(String name, String cognome) {
+        // Esempio: nome.cognome
+        return name.toLowerCase() + "." + cognome.toLowerCase();
+    }
+
+    private static String generateEmail(String name, String username) {
+        // Esempio: nome.username@example.com
+        return name.toLowerCase() + "." + username + "@example.com";
+    }
+}*/
+

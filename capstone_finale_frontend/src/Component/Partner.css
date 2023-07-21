@@ -1,0 +1,33 @@
+.partner {
+    background-color: #f4f4f4;
+    padding: 4rem;
+  }
+  
+  .partner-content {
+    text-align: center;
+    color: #333;
+  }
+  
+  .partner-heading {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .partner-description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .partner-button {
+    background-color: #ff7f50;
+    color: white;
+    padding: 0.5rem 2rem;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .partner-button:hover {
+    background-color: #ff6347;
+  }
+  

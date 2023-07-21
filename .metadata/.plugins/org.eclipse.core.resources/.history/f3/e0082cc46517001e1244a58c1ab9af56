@@ -1,0 +1,17 @@
+package it.tripagency_capstone_epicode.repository;
+
+import java.util.List;
+import it.tripagency_capstone_epicode.entity.Viaggi;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+public interface ViaggiRepository extends JpaRepository<Viaggi, Long>{
+    // Metodo per trovare un viaggio per ID destinazione
+	@Query("SELECT v FROM Viaggi v WHERE v.destinazione = :id_destinazione")
+	List<Viaggi> findByIdDestinazione(@Param("id_destinazione") Long idDestinazione);
+    
+    // Metodo per trovare viaggi per ID utente
+    
+}

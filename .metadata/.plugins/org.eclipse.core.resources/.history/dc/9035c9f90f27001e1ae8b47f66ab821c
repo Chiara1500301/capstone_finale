@@ -1,0 +1,7 @@
+package it.tripagency_capstone_epicode.exception;
+
+public class PrenotazioniNotFoundException extends RuntimeException {
+    public PrenotazioniNotFoundException(String message) {
+        super(message);
+    }
+}

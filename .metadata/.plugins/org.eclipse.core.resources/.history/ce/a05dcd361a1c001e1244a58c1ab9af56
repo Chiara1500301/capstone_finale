@@ -1,0 +1,145 @@
+package it.tripagency_capstone_epicode;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+import it.tripagency_capstone_epicode.repository.DestinazioniRepository;
+
+@SpringBootApplication
+public class TripAgencyApplication {
+
+    private final DestinazioniRepository destinazioniRepository;
+
+    public TripAgencyApplication(DestinazioniRepository destinazioniRepository) {
+        this.destinazioniRepository = destinazioniRepository;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(TripAgencyApplication.class, args);
+    }
+
+    @Bean
+    public void initDestinazioni() {
+        Destinazioni destinazione1 = new Destinazioni();
+        destinazione1.setNome("Marocco");
+        destinazione1.setDescrizione("Il tuo viaggio parte da Marrakech risolti verso Jemaa El Fna,piazza simbolo della citta,si parte poi per Kabash qui oasi e deserti vissuti in groppa ai dromedari!");
+        destinazione1.setImmagine("immagine-marocco.jpg");
+        destinazione1.setPaese("Marocco");
+        destinazione1.setCitta("Città del Marocco");
+        destinazioniRepository.save(destinazione1);
+
+        Destinazioni destinazione2 = new Destinazioni();
+        destinazione2.setNome("Kenya");
+        destinazione2.setDescrizione("Descrizione del Kenya");
+        destinazione2.setImmagine("immagine-kenya.jpg");
+        destinazione2.setPaese("Kenya");
+        destinazione2.setCitta("Città del Kenya");
+        destinazioniRepository.save(destinazione2);
+
+        Destinazioni destinazione3 = new Destinazioni();
+        destinazione3.setNome("Tunisia");
+        destinazione3.setDescrizione("Descrizione della Tunisia");
+        destinazione3.setImmagine("immagine-tunisia.jpg");
+        destinazione3.setPaese("Tunisia");
+        destinazione3.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione3);
+
+        Destinazioni destinazione4 = new Destinazioni();
+        destinazione4.setNome("Tunisia");
+        destinazione4.setDescrizione("Descrizione della Tunisia");
+        destinazione4.setImmagine("immagine-tunisia.jpg");
+        destinazione4.setPaese("Tunisia");
+        destinazione4.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione4);
+        
+        Destinazioni destinazione5 = new Destinazioni();
+        destinazione5.setNome("Tunisia");
+        destinazione5.setDescrizione("Descrizione della Tunisia");
+        destinazione5.setImmagine("immagine-tunisia.jpg");
+        destinazione5.setPaese("Tunisia");
+        destinazione5.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione5);
+        
+        Destinazioni destinazione6 = new Destinazioni();
+        destinazione6.setNome("Tunisia");
+        destinazione6.setDescrizione("Descrizione della Tunisia");
+        destinazione6.setImmagine("immagine-tunisia.jpg");
+        destinazione6.setPaese("Tunisia");
+        destinazione6.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione6);
+        
+        Destinazioni destinazione7 = new Destinazioni();
+        destinazione7.setNome("Tunisia");
+        destinazione7.setDescrizione("Descrizione della Tunisia");
+        destinazione7.setImmagine("immagine-tunisia.jpg");
+        destinazione7.setPaese("Tunisia");
+        destinazione7.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione7);
+        
+        Destinazioni destinazione8 = new Destinazioni();
+        destinazione8.setNome("Tunisia");
+        destinazione8.setDescrizione("Descrizione della Tunisia");
+        destinazione8.setImmagine("immagine-tunisia.jpg");
+        destinazione8.setPaese("Tunisia");
+        destinazione8.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione8);
+        
+        Destinazioni destinazione9 = new Destinazioni();
+        destinazione9.setNome("Tunisia");
+        destinazione9.setDescrizione("Descrizione della Tunisia");
+        destinazione9.setImmagine("immagine-tunisia.jpg");
+        destinazione9.setPaese("Tunisia");
+        destinazione9.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione9);
+        
+        Destinazioni destinazione10 = new Destinazioni();
+        destinazione10.setNome("Tunisia");
+        destinazione10.setDescrizione("Descrizione della Tunisia");
+        destinazione10.setImmagine("immagine-tunisia.jpg");
+        destinazione10.setPaese("Tunisia");
+        destinazione10.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione10);
+        
+        Destinazioni destinazione11 = new Destinazioni();
+        destinazione11.setNome("Tunisia");
+        destinazione11.setDescrizione("Descrizione della Tunisia");
+        destinazione11.setImmagine("immagine-tunisia.jpg");
+        destinazione11.setPaese("Tunisia");
+        destinazione11.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione11);
+        
+        Destinazioni destinazione12 = new Destinazioni();
+        destinazione12.setNome("Tunisia");
+        destinazione12.setDescrizione("Descrizione della Tunisia");
+        destinazione12.setImmagine("immagine-tunisia.jpg");
+        destinazione12.setPaese("Tunisia");
+        destinazione12.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione12);
+        
+        Destinazioni destinazione13 = new Destinazioni();
+        destinazione13.setNome("Tunisia");
+        destinazione13.setDescrizione("Descrizione della Tunisia");
+        destinazione13.setImmagine("immagine-tunisia.jpg");
+        destinazione13.setPaese("Tunisia");
+        destinazione13.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione13);
+        
+        Destinazioni destinazione14 = new Destinazioni();
+        destinazione14.setNome("Tunisia");
+        destinazione14.setDescrizione("Descrizione della Tunisia");
+        destinazione14.setImmagine("immagine-tunisia.jpg");
+        destinazione14.setPaese("Tunisia");
+        destinazione14.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione14);
+        
+        Destinazioni destinazione15 = new Destinazioni();
+        destinazione15.setNome("Tunisia");
+        destinazione15.setDescrizione("Descrizione della Tunisia");
+        destinazione15.setImmagine("immagine-tunisia.jpg");
+        destinazione15.setPaese("Tunisia");
+        destinazione15.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione15);
+   }
+}

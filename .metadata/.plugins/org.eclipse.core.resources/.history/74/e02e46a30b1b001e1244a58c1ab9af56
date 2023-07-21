@@ -1,0 +1,23 @@
+package it.tripagency_capstone_epicode.repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import it.tripagency_capstone_epicode.entity.Recensione;
+import it.tripagency_capstone_epicode.entity.User;
+import it.tripagency_capstone_epicode.entity.Viaggi;
+
+import java.util.List;
+
+@Repository
+public interface RecensioneRepository extends JpaRepository<Recensione, Long> {
+    List<Recensione> findByViaggio(Viaggi viaggio);
+    List<Recensione> findByUser(User user);
+    List<Recensione> findByValutazioneGreaterThanEqual(int valutazioneMinima);
+    List<Recensione> findByValutazioneLessThanEqual(int valutazioneMassima);
+    List<Recensione> findByViaggioAndValutazioneGreaterThanEqual(Viaggi viaggio, int valutazioneMinima);
+    List<Recensione> findByViaggioAndValutazioneLessThanEqual(Viaggi viaggio, int valutazioneMassima);
+    List<Recensione> findByUserAndValutazioneGreaterThanEqual(User user, int valutazioneMinima);
+    List<Recensione> findByUserAndValutazioneLessThanEqual(User user, int valutazioneMassima);
+}
+
+

@@ -1,0 +1,12 @@
+package it.tripagency_capstone_epicode.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+
+public interface DestinazioniRepository extends JpaRepository<Destinazioni,Long>{
+
+	Destinazioni findByIdDestinazione(Long idDestinazione);
+    Destinazioni findByNome(String nome);
+	
+}

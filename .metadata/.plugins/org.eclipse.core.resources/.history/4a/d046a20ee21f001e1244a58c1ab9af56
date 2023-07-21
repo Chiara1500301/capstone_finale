@@ -1,0 +1,16 @@
+package it.tripagency_capstone_epicode.repository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import it.tripagency_capstone_epicode.entity.Utenti;
+
+@Repository
+public interface userRepository1 extends CrudRepository<Utenti, Long> {
+	Utenti findByIdUser(Long idUser);
+	Utenti findByName(String name);
+	Utenti findByCognome(String cognome);
+	Utenti findByEmail(String email);
+    
+    @Override
+    <S extends Utenti> S save(Utenti randomUser);
+}

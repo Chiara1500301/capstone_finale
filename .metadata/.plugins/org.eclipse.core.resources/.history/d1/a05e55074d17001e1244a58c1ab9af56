@@ -1,0 +1,22 @@
+package it.tripagency_capstone_epicode.repository;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.repository.CrudRepository;
+
+import it.tripagency_capstone_epicode.entity.User;
+
+public interface UserRepository extends CrudRepository<User,Long>{
+
+	/*User findByEmail(String email);
+	User findByName(String name);
+	User findByCognome(String cognome);
+	User findByUser_id(String id_user);
+	
+	User deleteById(Id id_user);
+	User deleteByEmail(Id email);
+	User deleteByName(String name);
+	User deleteByCognome(String cognome);
+	
+	Boolean existById(Id id);*/
+	
+}

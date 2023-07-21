@@ -1,0 +1,43 @@
+package it.tripagency_capstone_epicode.Security.security.security;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import it.tripagency_capstone_epicode.entity.User;
+import it.tripagency_capstone_epicode.repository.UserRepository;
+
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.naming.NameNotFoundException;
+
+@Service
+public class UserDetailsService implements UserDetailsService {
+
+    private UserRepository userRepository;
+
+    public UserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public UserDetails loadUserByName(String NameOrEmail) throws NameNotFoundException {
+        User user = userRepository.findByNameOrEmail(NameOrEmail, NameOrEmail)
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        "User not found with username or email: " + usernameOrEmail));
+
+        Set<GrantedAuthority> authorities = user
+                .getRoles()
+                .stream()
+                .map((role) -> new SimpleGrantedAuthority(role.getRole().toString())).collect(Collectors.toSet());
+
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),
+                user.getPassword(),
+                authorities);
+    }
+
+	
+}

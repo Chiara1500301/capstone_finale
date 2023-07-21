@@ -1,0 +1,22 @@
+logging.level.root=INFO
+logging.level.it.epicode=DEBUG
+logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+logging.pattern.file= "%d{yyyy-MM-dd } [%thread] %-5level %logger{36} - %msg%n"
+logging.file.name= c:/logs/epicodews.log
+
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://localhost:5432/securitydemo
+spring.datasource.username=postgres
+spring.datasource.password=root
+
+spring.jpa.properties.hibernate.default_schema=public
+spring.jpa.hibernate.ddl-auto = create
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+#debug=true
+
+app.jwt-secret=daf66e01593f61a15b857cf433aae03a005812b31234e149036bcc8dee755dbb
+app.jwt-expiration-milliseconds=864000000
+

@@ -1,0 +1,133 @@
+package it.tripagency_capstone_epicode;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+import it.tripagency_capstone_epicode.repository.DestinazioniRepository;
+
+@SpringBootApplication
+public class TripAgencyApplication {
+
+    private final DestinazioniRepository destinazioniRepository;
+
+    public TripAgencyApplication(DestinazioniRepository destinazioniRepository) {
+        this.destinazioniRepository = destinazioniRepository;
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(TripAgencyApplication.class, args);
+    }
+
+
+    @Bean
+    public void initDestinazioni() {
+    	Destinazioni destinazione1 = new Destinazioni();
+    	destinazione1.setNome("Marocco");
+    	destinazione1.setPaese("Marocco");
+    	destinazione1.setCitta("Marakech,Kabash");
+    	destinazione1.setPrezzo(489.0); 
+    	destinazioniRepository.save(destinazione1);
+
+
+        Destinazioni destinazione2 = new Destinazioni();
+        destinazione2.setNome("Kenya");
+        destinazione2.setPaese("Kenya");
+    	destinazione2.setPrezzo(539.0); 
+        destinazione2.setCitta(" Watamu");
+        destinazioniRepository.save(destinazione2);
+
+        Destinazioni destinazione3 = new Destinazioni();
+        destinazione3.setNome("Tunisia");
+    	destinazione3.setPrezzo(339.0); 
+        destinazione3.setPaese("Tunisia");
+        destinazione3.setCitta("Midoun");
+        destinazioniRepository.save(destinazione3);
+
+        Destinazioni destinazione4 = new Destinazioni();
+        destinazione4.setNome("Brasile");
+    	destinazione4.setPrezzo(399.0); 
+        destinazione4.setPaese("Tunisia");
+        destinazione4.setCitta("Rio De Janeiro");
+        destinazioniRepository.save(destinazione4);
+        
+        Destinazioni destinazione5 = new Destinazioni();
+        destinazione5.setNome("Zanzibar");
+    	destinazione5.setPrezzo(339.0); 
+        destinazione5.setPaese("Zanzibar");
+        destinazione5.setCitta("Michamvi,Tanzania");
+        destinazioniRepository.save(destinazione5);
+        
+        Destinazioni destinazione6 = new Destinazioni();
+        destinazione6.setNome("Maldive");
+    	destinazione6.setPrezzo(489.0); 
+        destinazione6.setPaese("Maldive");
+        destinazione6.setCitta(" Hanimaadhoo");
+        destinazioniRepository.save(destinazione6);
+        
+        Destinazioni destinazione7 = new Destinazioni();
+        destinazione7.setNome("Cuba");
+        destinazione7.setPrezzo(489.0); 
+        destinazione7.setPaese("Tunisia");
+        destinazione7.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione7);
+        
+        Destinazioni destinazione8 = new Destinazioni();
+        destinazione8.setNome("Egitto");
+        destinazione8.setPrezzo(489.0); 
+        destinazione8.setPaese("Egitto");
+        destinazione8.setCitta("Shharm El Sheik");
+        destinazioniRepository.save(destinazione8);
+        
+        Destinazioni destinazione9 = new Destinazioni();
+        destinazione9.setNome("Giordania");
+        destinazione9.setPrezzo(489.0); 
+        destinazione9.setPaese("Giordania");
+        destinazione9.setCitta("Petra,Jerah,Al Karak");
+        destinazioniRepository.save(destinazione9);
+        
+        Destinazioni destinazione10 = new Destinazioni();
+        destinazione10.setNome("Grecia");
+        destinazione10.setPrezzo(489.0); 
+        destinazione10.setPaese("Grecia");
+        destinazione10.setCitta("Rodi");
+        destinazioniRepository.save(destinazione10);
+        
+        Destinazioni destinazione11 = new Destinazioni();
+        destinazione11.setNome("Italia");
+        destinazione11.setPrezzo(489.0); 
+        destinazione11.setPaese("Italia");
+        destinazione11.setCitta("Scilla");
+        destinazioniRepository.save(destinazione11);
+        
+        Destinazioni destinazione12 = new Destinazioni();
+        destinazione12.setNome("Messico");
+        destinazione12.setPrezzo(489.0); 
+        destinazione12.setPaese("Messico");
+        destinazione12.setCitta("Quintana Roo");
+        destinazioniRepository.save(destinazione12);
+        
+        Destinazioni destinazione13 = new Destinazioni();
+        destinazione13.setNome("Rep. Domenicana");
+        destinazione13.setPrezzo(489.0); 
+        destinazione13.setPaese("Rep.Domenicana");
+        destinazione13.setCitta("Punta Cana");
+        destinazioniRepository.save(destinazione13);
+        
+        Destinazioni destinazione14 = new Destinazioni();
+        destinazione14.setNome("Spagna");
+        destinazione14.setPrezzo(489.0); 
+        destinazione14.setPaese("Spagna");
+        destinazione14.setCitta("Fuerteventura");
+        destinazioniRepository.save(destinazione14);
+        
+        Destinazioni destinazione15 = new Destinazioni();
+        destinazione15.setNome("Stati Uniti");
+        destinazione15.setPrezzo(489.0); 
+        destinazione15.setPaese("Tunisia");
+        destinazione15.setCitta("Città della Tunisia");
+        destinazioniRepository.save(destinazione15);
+   }
+}

@@ -1,0 +1,35 @@
+package it.tripagency_capstone_epicode.controller;
+
+import it.tripagency_capstone_epicode.entity.Recensione;
+import it.tripagency_capstone_epicode.services.RecensioneService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/recensioni")
+public class RecensioneController {
+
+    private final RecensioneService recensioneService;
+
+    @Autowired
+    public RecensioneController(RecensioneService recensioneService) {
+        this.recensioneService = recensioneService;
+    }
+
+    @PostMapping
+    public Recensione createRecensione(@RequestBody Recensione recensione) {
+        return recensioneService.createRecensione(recensione);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Recensione> getRecensioniByUser(@PathVariable Long userId) {
+        return recensioneService.getRecensioniByUser(userId);
+    }
+
+    @GetMapping("/valutazione/{valutazioneMinima}")
+    public List<Recensione> getRecensioniByValutazione(@PathVariable int valutazioneMinima) {
+        return recensioneService.getRecensioniByValutazione(valutazioneMinima);
+    }
+}

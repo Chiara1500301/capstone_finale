@@ -1,0 +1,87 @@
+package it.tripagency_capstone_epicode.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import it.tripagency_capstone_epicode.entity.Utenti;
+import it.tripagency_capstone_epicode.services.UtentiService;
+import it.tripagency_capstone_epicode.entity.FakerUtenti;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/users")
+public class UtentiController {
+    private final UtentiService userService;
+    private final FakerUtenti fakerUtenti;
+
+    @Autowired
+    public UtentiController(UtentiService userService, FakerUtenti fakerUtenti) {
+        this.userService = userService;
+        this.fakerUtenti = fakerUtenti;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Utenti> getUserById(@PathVariable Long id) {
+        Optional<Utenti> user = userService.getUserById(id);
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Utenti> getUserByEmail(@PathVariable String email) {
+        Optional<Utenti> user = userService.getUserByEmail(email);
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping
+    public List<Utenti> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
+    @GetMapping("/name/{nome}")
+    public List<Utenti> getUsersByName(@PathVariable String nome) {
+        return userService.getUsersByName(nome);
+    }
+
+    @GetMapping("/surname/{cognome}")
+    public List<Utenti> getUsersBySurname(@PathVariable String cognome) {
+        return userService.getUsersBySurname(cognome);
+    }
+
+    @GetMapping("/random")
+    public ResponseEntity<Utenti> getRandomUser() {
+        Optional<Utenti> user = userService.getRandomUser();
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/random")
+    public ResponseEntity<Utenti> createRandomUser() {
+        Utenti randomUser = userService.createRandomUser();
+        return ResponseEntity.status(HttpStatus.CREATED).body(randomUser);
+    }
+
+    @PostMapping
+    public ResponseEntity<Utenti> saveUser(@RequestBody Utenti user) {
+        Utenti savedUser = userService.saveUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    }
+
+    @PostMapping("/batch")
+    public ResponseEntity<List<Utenti>> saveUsers(@RequestBody List<Utenti> users) {
+        List<Utenti> savedUsers = userService.saveUsers(users);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUsers);
+    }
+
+    @PostMapping("/generate")
+    public ResponseEntity<Void> generateUsers(@RequestParam("count") int count) {
+        fakerUtenti.generaUtenti(count);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
+}

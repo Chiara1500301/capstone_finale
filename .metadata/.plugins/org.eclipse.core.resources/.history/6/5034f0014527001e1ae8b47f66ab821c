@@ -1,0 +1,12 @@
+package it.tripagency_capstone_epicode.repository;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PacchettoRepository extends JpaRepository<Prenotazione, Long> {
+    List<Prenotazione> findByCostoTotale(double costoTotale);
+    List<Prenotazione> findByDestinazioneNome(String destinazioneNome);
+    List<Prenotazione> findByCostoTotaleAndDestinazioneNome(double costoTotale, String destinazioneNome);
+}

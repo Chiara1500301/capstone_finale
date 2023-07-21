@@ -1,0 +1,56 @@
+package it.tripagency_capstone_epicode.DAO;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Repository
+public class PacchettoDao {
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Transactional
+    public void createPacchetti() {
+        List<Destinazioni> destinazioni = entityManager.createQuery("SELECT d FROM Destinazioni d", Destinazioni.class)
+                .getResultList();
+
+        List<Pacchetto> pacchetti = new ArrayList<>();
+
+        for (Destinazioni destinazione : destinazioni) {
+            Pacchetto pacchetto = new Pacchetto();
+            pacchetto.setDestinazione(destinazione);
+            pacchetto.setAlloggio("Hotel");
+            pacchetto.setMezzaPensione(false);
+            pacchetto.setAssicurazioneBase(true);
+            pacchetto.setAttivitàDiGruppo(true);
+            pacchetto.setSpostamentiDiGruppo(true);
+
+            if (destinazione.getNome().equals("Italia") || destinazione.getNome().equals("Spagna")
+                    || destinazione.getNome().equals("Regno Unito")) {
+                pacchetto.setPrezzoMinimo(350);
+                pacchetto.setDurataMinima(4);
+            } else {
+                pacchetto.setPrezzoMassimo(2000);
+                pacchetto.setDurataMassima(10);
+            }
+
+            pacchetto.setDataInizio(LocalDate.now());
+            pacchetti.add(pacchetto);
+        }
+
+        for (Pacchetto pacchetto : pacchetti) {
+            entityManager.persist(pacchetto);
+            System.out.println("Pacchetto inserito: " + pacchetto.getDestinazione().getNome());
+        }
+
+        entityManager.flush();
+    }
+}

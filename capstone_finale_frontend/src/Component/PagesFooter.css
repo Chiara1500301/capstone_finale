@@ -1,0 +1,96 @@
+.page-container {
+    padding: 4rem;
+  }
+  
+  .page-container h1 {
+    color: rgb(13, 13, 40);
+  }
+  
+  .page-container p {
+    color: rgb(13, 13, 40);
+  }
+  
+  .page-container ul {
+    list-style: disc;
+    margin-left: 1.5rem;
+    color: rgb(13, 13, 40);
+  }
+  
+  .page-container a {
+    color: #ff7f50;
+    text-decoration: none;
+  }
+  
+  .page-container a:hover {
+    text-decoration: underline;
+  }
+  
+  .page-container button {
+    background-color: #ff7f50;
+    color: white;
+  }
+  
+  .page-container button:hover {
+    background-color: #ff6347;
+  }
+  
+  .page-container .description {
+    margin-top: 2rem;
+  }
+  
+  .page-container .description h3 {
+    color: rgb(13, 13, 40);
+  }
+  
+  .page-container .description ul {
+    list-style: disc;
+    margin-left: 1.5rem;
+  }
+  
+  .page-container .sidebar {
+    background-color: rgb(13, 13, 40);
+    color: white;
+    text-align: center;
+    margin-top: 5rem;
+    height: 150px;
+  }
+  
+  .page-container .sidebar button {
+    background-color: salmon;
+    color: white;
+  }
+  
+  .page-container .sidebar h3,
+  .page-container .sidebar p {
+    color: rgb(255, 255, 255);
+  }
+  
+  .page-container .image-container {
+    width: 499px;
+    height: 333px;
+  }
+  
+  .page-container .my-image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .page-container .carousel-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .page-container .carousel-image {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .page-container .carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+  

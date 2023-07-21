@@ -1,0 +1,9 @@
+package it.tripagency_capstone_epicode.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import it.tripagency_capstone_epicode.entity.User;
+
+public interface UserRepository extends CrudRepository<User,Long>{
+
+}

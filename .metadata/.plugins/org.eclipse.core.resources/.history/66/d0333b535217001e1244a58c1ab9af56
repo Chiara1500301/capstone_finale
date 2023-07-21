@@ -1,0 +1,35 @@
+package it.tripagency_capstone_epicode.entity;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+public class Prenotazione {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idPrenotazione;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToOne
+    private Viaggi viaggio;
+
+    @ManyToOne
+    private Pacchetto pacchetto;
+
+    private int numeroPersone;
+    private LocalDate dataPrenotazione;
+    private double prezzoTot;
+}

@@ -1,0 +1,13 @@
+package it.tripagency_capstone_epicode.javafaker;
+import org.junit.Before;
+import com.github.javafaker.Faker;
+import it.tripagency_capstone_epicode.entity.*;
+public class userFaker {
+	User user = new User();
+	
+	@Before
+	public void generateDate() {
+		Faker fakeData=new Faker();
+		user.setIdUser(fakeData.number().randomNumber().idUser());
+	}
+}

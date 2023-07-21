@@ -1,0 +1,52 @@
+package it.tripagency_capstone_epicode.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import it.tripagency_capstone_epicode.entity.Prenotazioni;
+import it.tripagency_capstone_epicode.entity.Utenti;
+import it.tripagency_capstone_epicode.exception.PrenotazioneNotFoundException;
+import it.tripagency_capstone_epicode.repository.UtentiRepository;
+import it.tripagency_capstone_epicode.services.PrenotazioniService;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/prenotazioni")
+@CrossOrigin(origins = "http://localhost:3000")
+public class PrenotazioniController {
+
+    private final PrenotazioniService prenotazioniService;
+
+    @Autowired
+    public PrenotazioniController(PrenotazioniService prenotazioniService) {
+        this.prenotazioniService = prenotazioniService;
+    }
+
+    @PostMapping
+    public ResponseEntity<Prenotazioni> createPrenotazione(@RequestBody Prenotazioni prenotazione) {
+        Prenotazioni nuovaPrenotazione = prenotazioniService.createPrenotazione(prenotazione);
+        return ResponseEntity.ok(nuovaPrenotazione);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Prenotazioni> getPrenotazioneById(@PathVariable Long id) {
+        Optional<Prenotazioni> prenotazioneOptional = prenotazioniService.getPrenotazioneById(id);
+        return prenotazioneOptional.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Prenotazioni> updatePrenotazione(@PathVariable Long id, @RequestBody Prenotazioni prenotazioneAggiornata) {
+        Prenotazioni updatedPrenotazione = prenotazioniService.updatePrenotazione(id, prenotazioneAggiornata);
+        return ResponseEntity.ok(updatedPrenotazione);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePrenotazione(@PathVariable Long id) {
+        prenotazioniService.deletePrenotazione(id);
+        return ResponseEntity.noContent().build();
+    }
+}

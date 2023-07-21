@@ -1,0 +1,12 @@
+package it.tripagency_capstone_epicode.entity;
+
+import org.junit.jupiter.api.Test;
+import com.github.javafaker.*;
+public class UserTest {
+User user= new User();
+@Test
+public void generateData() {
+	Faker fakeData=new Faker();
+	
+}
+}

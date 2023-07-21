@@ -1,0 +1,32 @@
+package it.tripagency_capstone_epicode.DAO;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import it.tripagency_capstone_epicode.entity.User;
+
+public class UserDao {
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/testjpa";
+    private static final String DB_USERNAME = "postgres";
+    private static final String DB_PASSWORD = "root";
+
+    public void insertUser(User user) {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            String query = "INSERT INTO users (id_user, name, cognome, email, password, data_nascita) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.setLong(1, user.getIdUser());
+            statement.setString(2, user.getName());
+            statement.setString(3, user.getCognome());
+            statement.setString(4, user.getEmail());
+            statement.setString(5, user.getPassword());
+            statement.setDate(6, user.getData_nascita());
+
+            statement.executeUpdate();
+
+            System.out.println("User inserted successfully");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

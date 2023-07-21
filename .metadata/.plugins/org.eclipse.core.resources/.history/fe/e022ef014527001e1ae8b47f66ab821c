@@ -1,0 +1,16 @@
+package it.tripagency_capstone_epicode.repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+
+import java.util.List;
+
+@Repository
+public interface PacchettoRepository extends JpaRepository<Pacchetto, Long> {
+    List<Pacchetto> findByDestinazioneNome(String destinazione);
+    List<Pacchetto> findByPrezzoBetween(double minPrice, double maxPrice);
+    List<Pacchetto> findByDurataBetween(int minDuration, int maxDuration);
+    List<Pacchetto> findByPasti(String pasti);
+}
+

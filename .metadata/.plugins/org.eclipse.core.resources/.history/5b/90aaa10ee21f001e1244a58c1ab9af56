@@ -1,0 +1,17 @@
+package it.tripagency_capstone_epicode.repository;
+
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import it.tripagency_capstone_epicode.entity.Prenotazione;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Repository
+public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Long> {
+    int countByPacchetto(Pacchetto pacchetto);
+    List<Prenotazione> findByUser(Long userId);
+    List<Prenotazione> findByDataInizioBetween(LocalDate startDate, LocalDate endDate);
+}
+

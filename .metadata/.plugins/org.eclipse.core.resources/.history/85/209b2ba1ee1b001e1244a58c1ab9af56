@@ -1,0 +1,54 @@
+package it.tripagency_capstone_epicode.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import it.tripagency_capstone_epicode.services.PacchettoService;
+
+@RestController
+@RequestMapping("/pacchetti")
+public class PacchettoController {
+
+    private final PacchettoService pacchettoService;
+
+    @Autowired
+    public PacchettoController(PacchettoService pacchettoService) {
+        this.pacchettoService = pacchettoService;
+    }
+
+    @PostMapping
+    public ResponseEntity<Pacchetto> createPacchetto(@RequestBody Pacchetto pacchetto) {
+        Pacchetto createdPacchetto = pacchettoService.createPacchetto(pacchetto);
+        return new ResponseEntity<>(createdPacchetto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Pacchetto> getPacchettoById(@PathVariable Long id) {
+        Pacchetto pacchetto = pacchettoService.getPacchettoById(id);
+        if (pacchetto != null) {
+            return new ResponseEntity<>(pacchetto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Pacchetto> updatePacchetto(@PathVariable Long id, @RequestBody Pacchetto pacchetto) {
+        Pacchetto updatedPacchetto = pacchettoService.updatePacchetto(id, pacchetto);
+        if (updatedPacchetto != null) {
+            return new ResponseEntity<>(updatedPacchetto, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletePacchetto(@PathVariable Long id) {
+        pacchettoService.deletePacchetto(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}
+

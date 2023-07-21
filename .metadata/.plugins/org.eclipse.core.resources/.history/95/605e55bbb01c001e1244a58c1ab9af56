@@ -1,0 +1,37 @@
+package it.tripagency_capstone_epicode.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+import it.tripagency_capstone_epicode.repository.DestinazioniRepository;
+
+@Service
+public class DestinazioniService {
+    private final DestinazioniRepository destinazioniRepository;
+
+    @Autowired
+    public DestinazioniService(DestinazioniRepository destinazioniRepository) {
+        this.destinazioniRepository = destinazioniRepository;
+    }
+
+    public Destinazioni getDestinazioneById(Long idDestinazione) {
+        return destinazioniRepository.findByIdDestinazione(idDestinazione);
+    }
+
+    public Iterable<Destinazioni> getAllDestinazioni() {
+        return destinazioniRepository.findAll();
+    }
+
+    public Destinazioni saveDestinazione(Destinazioni destinazione) {
+        return destinazioniRepository.save(destinazione);
+    }
+
+    public void deleteDestinazioneById(Long idDestinazione) {
+        destinazioniRepository.deleteByIdDestinazione(idDestinazione);
+    }
+
+	public static Destinazioni getDestinazioniById(Long id_destinazioni) {
+		return null;
+	}
+}

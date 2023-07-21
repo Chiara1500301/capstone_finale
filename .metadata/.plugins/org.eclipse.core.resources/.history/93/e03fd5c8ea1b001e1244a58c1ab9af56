@@ -1,0 +1,17 @@
+package it.tripagency_capstone_epicode.repository;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+
+@Repository
+public interface PacchettoRepository extends CrudRepository<Pacchetto, Long> {
+    List<Pacchetto> findByDestinazioneIdDestinazione(Long idDestinazione);
+}
+
+
+
+

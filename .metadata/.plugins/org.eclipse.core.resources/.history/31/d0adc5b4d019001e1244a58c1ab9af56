@@ -1,0 +1,9 @@
+package it.tripagency_capstone_epicode.entity;
+
+public class UserRegistrationTest {
+User user= new User();
+@BeforeTest
+public void generateData() {
+	
+}
+}

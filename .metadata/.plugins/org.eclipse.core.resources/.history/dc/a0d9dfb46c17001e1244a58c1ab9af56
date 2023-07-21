@@ -1,0 +1,15 @@
+package it.tripagency_capstone_epicode.repository;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import it.tripagency_capstone_epicode.entity.Recensione;
+
+@Repository
+public interface RecensioneRepository extends JpaRepository<Recensione, Long> {
+
+    @Transactional
+    void deleteByPacchetto(Pacchetto pacchetto);
+}
+

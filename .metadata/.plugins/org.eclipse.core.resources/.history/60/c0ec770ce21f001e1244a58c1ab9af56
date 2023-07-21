@@ -1,0 +1,14 @@
+package it.tripagency_capstone_epicode.exception;
+
+public class DestinazioneNotFoundException extends RuntimeException {
+
+    public DestinazioneNotFoundException(String message) {
+        super(message);
+    }
+
+    public DestinazioneNotFoundException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+}
+

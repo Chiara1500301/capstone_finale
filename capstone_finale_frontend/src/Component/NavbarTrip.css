@@ -1,0 +1,32 @@
+.navbar-trip {
+    background-color: #ff7f50;
+    color: white;
+  }
+  
+  .navbar-trip .navbar-brand {
+    font-weight: bold;
+    color: white;
+  }
+  
+  .navbar-trip .nav-link {
+    text-decoration: none;
+    color: white;
+  }
+  
+  .navbar-trip .buttonNav {
+    background-color: rgb(13, 13, 40);
+    color: white;
+    border-color: rgb(13, 13, 40);
+  }
+  
+  .navbar-trip .buttonNav:hover,
+  .navbar-trip .buttonNav:focus {
+    background-color: rgb(13, 13, 40);
+    color: white;
+    border-color: rgb(13, 13, 40);
+    box-shadow: none;
+  }
+ .list-group-item {
+    text-decoration: none;
+  }
+  

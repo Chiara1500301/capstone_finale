@@ -1,0 +1,33 @@
+.lavora-con-noi {
+    background-color: #f4f4f4;
+    padding: 4rem;
+  }
+  
+  .lavora-con-noi-content {
+    text-align: center;
+    color: #333;
+  }
+  
+  .lavora-con-noi-heading {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .lavora-con-noi-description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .lavora-con-noi-button {
+    background-color: #ff7f50;
+    color: white;
+    padding: 0.5rem 2rem;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .lavora-con-noi-button:hover {
+    background-color: #ff6347;
+  }
+  

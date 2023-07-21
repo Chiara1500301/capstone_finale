@@ -1,0 +1,39 @@
+/*package it.tripagency_capstone_epicode.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import it.tripagency_capstone_epicode.repository.PacchettoRepository;
+
+@Service
+public class PacchettoService {
+
+    private final PacchettoRepository pacchettoRepository;
+
+    @Autowired
+    public PacchettoService(PacchettoRepository pacchettoRepository) {
+        this.pacchettoRepository = pacchettoRepository;
+    }
+
+    public Pacchetto createPacchetto(Pacchetto pacchetto) {
+        return pacchettoRepository.save(pacchetto);
+    }
+
+    public Pacchetto getPacchettoById(Long id) {
+        return pacchettoRepository.findById(id).orElse(null);
+    }
+
+    public Pacchetto updatePacchetto(Long id, Pacchetto pacchetto) {
+        if (pacchettoRepository.existsById(id)) {
+            pacchetto.setId_pacchetto(id);
+            return pacchettoRepository.save(pacchetto);
+        }
+        return null;
+    }
+
+    public void deletePacchetto(Long id) {
+        pacchettoRepository.deleteById(id);
+    }
+}*/
+

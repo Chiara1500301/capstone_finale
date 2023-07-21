@@ -1,0 +1,81 @@
+package it.tripagency_capstone_epicode.DAO;
+
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Component
+public class PacchettoDao {
+
+    @Autowired
+    private EntityManager entityManager;
+
+    @Transactional
+    public void createPacchetti() {
+        List<Destinazioni> destinazioni = entityManager.createQuery("SELECT d FROM Destinazioni d", Destinazioni.class)
+                .getResultList();
+
+        for (Destinazioni destinazione : destinazioni) {
+            Pacchetto pacchetto = createPacchetto(destinazione);
+            entityManager.persist(pacchetto);
+        }
+
+        entityManager.flush();
+    }
+
+    private Pacchetto createPacchetto(Destinazioni destinazione) {
+        Pacchetto pacchetto = new Pacchetto();
+        pacchetto.setDestinazione(destinazione);
+        pacchetto.setAlloggio("Hotel");
+        pacchetto.setMezzaPensione(false);
+        pacchetto.setAssicurazioneBase(true);
+        pacchetto.setAttivitàDiGruppo(true);
+        pacchetto.setSpostamentiDiGruppo(true);
+
+        if (destinazione.getNome().equals("Italia") || destinazione.getNome().equals("Spagna")
+                || destinazione.getNome().equals("Regno Unito")) {
+            pacchetto.setPrezzoMinimo(350);
+            pacchetto.setDurataMinima(4);
+        } else {
+            pacchetto.setPrezzoMassimo(2000);
+            pacchetto.setDurataMassima(10);
+        }
+
+        pacchetto.setDataInizio(LocalDate.now());
+        return pacchetto;
+    }
+
+    public void printPacchettiWithDestinazioni() {
+        TypedQuery<Pacchetto> query = entityManager.createQuery("SELECT p FROM Pacchetto p JOIN FETCH p.destinazione", Pacchetto.class);
+        List<Pacchetto> pacchetti = query.getResultList();
+
+        for (Pacchetto pacchetto : pacchetti) {
+            System.out.println("Pacchetto id_pacchetto: " + pacchetto.getId_pacchetto());
+            System.out.println("Destinazione: " + pacchetto.getDestinazione().getNome());
+            System.out.println("Alloggio: " + pacchetto.getAlloggio());
+            System.out.println("Mezza Pensione: " + pacchetto.isMezzaPensione());
+            System.out.println("Assicurazione Base: " + pacchetto.isAssicurazioneBase());
+            System.out.println("Attività di Gruppo: " + pacchetto.isAttivitàDiGruppo());
+            System.out.println("Spostamenti di Gruppo: " + pacchetto.isSpostamentiDiGruppo());
+            System.out.println("Prezzo Minimo: " + pacchetto.getPrezzoMinimo());
+            System.out.println("Prezzo Massimo: " + pacchetto.getPrezzoMassimo());
+            System.out.println("Durata Minima: " + pacchetto.getDurataMinima());
+            System.out.println("Durata Massima: " + pacchetto.getDurataMassima());
+            System.out.println("Data Inizio: " + pacchetto.getDataInizio());
+            System.out.println("--------------------");
+        }
+    }
+
+    public List<Pacchetto> getAllPacchetti() {
+        TypedQuery<Pacchetto> query = entityManager.createQuery("SELECT p FROM Pacchetto p", Pacchetto.class);
+        return query.getResultList();
+    }
+}

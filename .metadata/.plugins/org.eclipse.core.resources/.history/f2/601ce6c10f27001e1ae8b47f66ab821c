@@ -1,0 +1,38 @@
+package it.tripagency_capstone_epicode.services;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import it.tripagency_capstone_epicode.entity.Prenotazioni;
+import it.tripagency_capstone_epicode.entity.Utenti;
+import it.tripagency_capstone_epicode.repository.PrenotazioniRepository;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@Service
+public class PrenotazioniServices {
+    private final PrenotazioniRepository prenotazioniRepository;
+
+    @Autowired
+    public PrenotazioniServices(PrenotazioniRepository prenotazioniRepository) {
+        this.prenotazioniRepository = prenotazioniRepository;
+    }
+
+    public List<Prenotazioni> getPrenotazioniByPacchettoId(Long pacchettoId) {
+        return prenotazioniRepository.findByPacchettoId(pacchettoId);
+    }
+
+    public List<Prenotazioni> getPrenotazioniByDate(LocalDate startDate, LocalDate endDate) {
+        return prenotazioniRepository.findByDataInizioBetween(startDate, endDate);
+    }
+
+    public List<Prenotazioni> getPrenotazioniByUtente(Utenti utente) {
+        return prenotazioniRepository.findByUtente(utente);
+    }
+
+    public int getCountPrenotazioniByPacchettoId(Long pacchettoId) {
+        return prenotazioniRepository.countByPacchettoId(pacchettoId);
+    }
+}
+

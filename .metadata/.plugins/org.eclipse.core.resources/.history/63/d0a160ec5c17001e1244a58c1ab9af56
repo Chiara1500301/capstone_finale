@@ -1,0 +1,13 @@
+package it.tripagency_capstone_epicode.repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import it.tripagency_capstone_epicode.entity.User;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    //User findByIdUser(Long id_user);
+    //User findByNome(String nome);
+    User findByCognome(String cognome);
+    User findByEmail(String email);
+}

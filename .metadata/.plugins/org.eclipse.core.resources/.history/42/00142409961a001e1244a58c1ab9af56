@@ -1,0 +1,135 @@
+package it.tripagency_capstone_epicode.DAO;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import it.tripagency_capstone_epicode.entity.User;
+import it.tripagency_capstone_epicode.entity.Viaggi;
+import it.tripagency_capstone_epicode.entity.Destinazioni;
+
+public class PacchettoDao {
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/testjpa";
+    private static final String DB_USERNAME = "postgres";
+    private static final String DB_PASSWORD = "root";
+
+    public void insertPacchetti(List<User> users, List<Destinazioni> destinazioni) {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            for (User user : users) {
+                for (Destinazioni destinazione : destinazioni) {
+                    Pacchetto pacchetto = createPacchetto(user, destinazione);
+                    insertPacchetto(connection, pacchetto);
+                }
+            }
+            System.out.println("Pacchetti inserted successfully");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Pacchetto createPacchetto(User user, Destinazioni destinazione) {
+        Pacchetto pacchetto = new Pacchetto();
+        pacchetto.setUser(user);
+        pacchetto.setDestinazione(destinazione);
+        pacchetto.setAlloggio("Hotel");
+        pacchetto.setMezzaPensione(destinazione.getPaese().equals("Italia"));
+        pacchetto.setAssicurazioneBase(true);
+        pacchetto.setAttivitàDiGruppo(true);
+        pacchetto.setSpostamentiDiGruppo(true);
+        pacchetto.setPrezzoMinimo(destinazione.getPaese().equals("Italia") ? 350.0 : 600.0);
+        pacchetto.setPrezzoMassimo(2000.0);
+        pacchetto.setDurataMinima(2);
+        pacchetto.setDurataMassima(9);
+        pacchetto.setDataInizio(null);
+        return pacchetto;
+    }
+
+    private void insertPacchetto(Connection connection, Pacchetto pacchetto) throws SQLException {
+        String query = "INSERT INTO pacchetto (id_user, id_destinazione, alloggio, mezza_pensione, assicurazione_base, attivita_di_gruppo, spostamenti_di_gruppo, prezzo_minimo, prezzo_massimo, durata_minima, durata_massima, data_inizio) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = connection.prepareStatement(query);
+
+        statement.setLong(1, pacchetto.getUser().getIdUser());
+        statement.setLong(2, pacchetto.getDestinazione().getIdDestinazione());
+        statement.setString(3, pacchetto.getAlloggio());
+        statement.setBoolean(4, pacchetto.isMezzaPensione());
+        statement.setBoolean(5, pacchetto.isAssicurazioneBase());
+        statement.setBoolean(6, pacchetto.isAttivitàDiGruppo());
+        statement.setBoolean(7, pacchetto.isSpostamentiDiGruppo());
+        statement.setDouble(8, pacchetto.getPrezzoMinimo());
+        statement.setDouble(9, pacchetto.getPrezzoMassimo());
+        statement.setInt(10, pacchetto.getDurataMinima());
+        statement.setInt(11, pacchetto.getDurataMassima());
+        statement.setDate(12, java.sql.Date.valueOf(pacchetto.getDataInizio()));
+
+        statement.executeUpdate();
+    }
+
+    public List<Pacchetto> getPacchettiByDestinazione(Destinazioni destinazione) {
+        List<Pacchetto> pacchetti = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            String query = "SELECT p.id_pacchetto, p.alloggio, p.mezza_pensione, p.assicurazione_base, p.attivita_di_gruppo, p.spostamenti_di_gruppo, " +
+                    "p.prezzo_minimo, p.prezzo_massimo, p.durata_minima, p.durata_massima, p.data_inizio, " +
+                    "v.id_viaggio, v.periodo_prenotazione, " +
+                    "d.id_destinazione, d.nome, d.descrizione, d.immagine, d.paese, d.citta, " +
+                    "u.id_user, u.username, u.password " +
+                    "FROM pacchetti p " +
+                    "INNER JOIN viaggi v ON p.id_viaggio = v.id_viaggio " +
+                    "INNER JOIN destinazioni d ON p.id_destinazione = d.id_destinazione " +
+                    "INNER JOIN utenti u ON p.id_user = u.id_user " +
+                    "WHERE p.id_destinazione = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setLong(1, destinazione.getIdDestinazione());
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Pacchetto pacchetto = new Pacchetto();
+                pacchetto.setIdPacchetto(resultSet.getLong("id_pacchetto"));
+                pacchetto.setAlloggio(resultSet.getString("alloggio"));
+                pacchetto.setMezzaPensione(resultSet.getBoolean("mezza_pensione"));
+                pacchetto.setAssicurazioneBase(resultSet.getBoolean("assicurazione_base"));
+                pacchetto.setAttivitàDiGruppo(resultSet.getBoolean("attivita_di_gruppo"));
+                pacchetto.setSpostamentiDiGruppo(resultSet.getBoolean("spostamenti_di_gruppo"));
+                pacchetto.setPrezzoMinimo(resultSet.getDouble("prezzo_minimo"));
+                pacchetto.setPrezzoMassimo(resultSet.getDouble("prezzo_massimo"));
+                pacchetto.setDurataMinima(resultSet.getInt("durata_minima"));
+                pacchetto.setDurataMassima(resultSet.getInt("durata_massima"));
+                pacchetto.setDataInizio(resultSet.getDate("data_inizio").toLocalDate());
+
+                Viaggi viaggio = new Viaggi();
+                viaggio.setIdViaggio(resultSet.getLong("id_viaggio"));
+                viaggio.setPeriodoPrenotazione(resultSet.getDate("periodo_prenotazione").toLocalDate());
+
+                Destinazioni pacchettoDestinazione = new Destinazioni();
+                pacchettoDestinazione.setIdDestinazione(resultSet.getInt("id_destinazione"));
+                pacchettoDestinazione.setNome(resultSet.getString("nome"));
+                pacchettoDestinazione.setDescrizione(resultSet.getString("descrizione"));
+                pacchettoDestinazione.setImmagine(resultSet.getString("immagine"));
+                pacchettoDestinazione.setPaese(resultSet.getString("paese"));
+                pacchettoDestinazione.setCitta(resultSet.getString("citta"));
+
+                User pacchettoUser = new User();
+                pacchettoUser.setIdUser(resultSet.getLong("id_user"));
+                pacchettoUser.setName(resultSet.getString("name"));
+                pacchettoUser.setPassword(resultSet.getString("password"));
+
+                pacchetto.setViaggio(viaggio);
+                pacchetto.setDestinazione(pacchettoDestinazione);
+                pacchetto.setUser(pacchettoUser);
+
+                pacchetti.add(pacchetto);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return pacchetti;
+}
+}

@@ -1,0 +1,50 @@
+package it.tripagency_capstone_epicode.runner;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+import it.tripagency_capstone_epicode.entity.Pacchetto;
+import it.tripagency_capstone_epicode.entity.Recensione;
+import it.tripagency_capstone_epicode.entity.User;
+import it.tripagency_capstone_epicode.services.PacchettoService;
+import it.tripagency_capstone_epicode.services.RecensioneService;
+import it.tripagency_capstone_epicode.services.UserService;
+
+@Component
+public class MyRunner implements ApplicationRunner {
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private PacchettoService pacchettoService;
+
+    @Autowired
+    private RecensioneService recensioneService;
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        // Esegui le operazioni che desideri al momento dell'avvio dell'applicazione
+
+        // Esempio di creazione di un utente
+        User user = new User();
+        user.setUsername("john.doe");
+        user.setPassword("password");
+        userService.createUser(user);
+
+        // Esempio di creazione di un pacchetto
+        Pacchetto pacchetto = new Pacchetto();
+        pacchetto.setName("Vacanza in spiaggia");
+        pacchetto.setNomeDestinazione("Maldive");
+        pacchettoService.createPacchetto(pacchetto);
+
+        // Esempio di creazione di una recensione
+        Recensione recensione = new Recensione();
+        recensione.setUser(user);
+        recensione.setValutazione(5);
+        recensione.setCommento("Vacanza fantastica!");
+        recensioneService.createRecensione(recensione);
+    }
+}
+

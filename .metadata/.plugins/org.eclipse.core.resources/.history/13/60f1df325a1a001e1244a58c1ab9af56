@@ -1,0 +1,53 @@
+package it.tripagency_capstone_epicode.filecsv;
+
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class UserCsv {
+    private static final String user = "src\\user.csv";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/testjpa";
+    private static final String DB_USERNAME = "postgres";
+    private static final String DB_PASSWORD = "root";
+
+    public static void main(String[] args) {
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {
+            String query = "INSERT INTO users(id_user, name, cognome, email, password, data_nascita) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(query);
+            CSVReader reader = new CSVReader(new FileReader(user));
+            String[] nextLine;
+            boolean isFirstLine = true;
+
+            while ((nextLine = reader.readNext()) != null) {
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
+                long idUser = Long.parseLong(nextLine[0]);
+                statement.setLong(1, idUser);
+                statement.setString(2, nextLine[1]);
+                statement.setString(3, nextLine[2]);
+                statement.setString(4, nextLine[3]);
+                statement.setString(5, nextLine[4]);
+
+                String dateString = nextLine[5]; // Ottieni la stringa della data dal CSV
+                LocalDate localDate = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("dd/MM/yyyy")); // Converte la stringa in un oggetto LocalDate nel formato corretto
+                java.sql.Date date = java.sql.Date.valueOf(localDate); // Converte l'oggetto LocalDate in un oggetto java.sql.Date
+                statement.setDate(6, date); // Imposta il valore della data nel PreparedStatement
+
+                statement.executeUpdate();
+            }
+
+            System.out.println("DATA imported successfully");
+        } catch (SQLException | IOException | CsvValidationException e) {
+            e.printStackTrace();
+        }
+    }
+}

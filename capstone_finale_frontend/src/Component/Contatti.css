@@ -1,0 +1,50 @@
+.contatti {
+    background-color: #f4f4f4;
+    padding: 4rem;
+  }
+  
+  .contatti-content {
+    text-align: center;
+    color: #333;
+  }
+  
+  .contatti-heading {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .contatti-description {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .contatti-info {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  
+  .contatti-info-item {
+    display: flex;
+    align-items: center;
+    margin-right: 1rem;
+  }
+  
+  .contatti-info-item i {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  .contatti-button {
+    background-color: #ff7f50;
+    color: white;
+    padding: 0.5rem 2rem;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .contatti-button:hover {
+    background-color: #ff6347;
+  }
+  
